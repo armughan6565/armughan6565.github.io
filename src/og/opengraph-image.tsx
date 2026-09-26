@@ -1,11 +1,18 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/config/site";
 
+
 export const alt = `${site.name} — ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Default social card, inherited by every route without its own. */
+/**
+ * Design source for src/app/opengraph-image.png (the default social card).
+ * Kept out of src/app because a generated image exports without a file extension,
+ * which GitHub Pages serves as application/octet-stream. To change the card: move this
+ * file back into src/app, build, copy out/opengraph-image to src/app/opengraph-image.png,
+ * then move it back here.
+ */
 export default function OpengraphImage() {
   const cells = Array.from({ length: 9 }, (_, i) => [2, 3, 4, 4, 5, 6, 7, 8, 9][i]);
   return new ImageResponse(

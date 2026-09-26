@@ -7,7 +7,12 @@ import { Button } from "@/components/ui/button";
 import { contactSchema, serviceOptions, type ContactField } from "@/lib/contact-schema";
 import { site } from "@/config/site";
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Status = "idle" | "submitting" | "success" | "error" | "unavailable";
+
+// Static hosting (GitHub Pages) has no server routes, so online submission is off unless
+// a POST endpoint is supplied at build time, e.g. NEXT_PUBLIC_CONTACT_ENDPOINT=/api/contact on a Node host.
+const contactEndpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT;
+
 type Errors = Partial<Record<ContactField, string>>;
 
 const intents = [
@@ -122,10 +127,14 @@ export function ContactForm({ countries }: { countries: string[] }) {
     setServerError("");
     const data = validate();
     if (!data) return;
+    if (!contactEndpoint) {
+      setStatus("unavailable");
+      return;
+    }
 
     setStatus("submitting");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(contactEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -164,6 +173,22 @@ export function ContactForm({ countries }: { countries: string[] }) {
   }
 
   const current = intents.find((i) => i.value === intent)!;
+
+  function mailtoHref() {
+    const d = collect() as Record<string, unknown>;
+    const serviceLabel = serviceOptions.find((o) => o.value === d.service)?.label ?? "";
+    const body = [
+      `Name: ${d.name}`,
+      `Company: ${d.company}`,
+      `Email: ${d.email}`,
+      ...(d.phone ? [`Phone: ${d.phone}`] : []),
+      `Country: ${d.country}`,
+      `Service: ${serviceLabel}`,
+      "",
+      String(d.message ?? ""),
+    ].join("\n");
+    return `mailto:${site.contact.email}?subject=${encodeURIComponent(`${current.label} — ${d.company}`)}&body=${encodeURIComponent(body)}`;
+  }
 
   return (
     <form ref={formRef} noValidate onSubmit={onSubmit} onChange={onChange} className="border border-line bg-white p-6 sm:p-10">
@@ -251,6 +276,23 @@ export function ContactForm({ countries }: { countries: string[] }) {
           <input id={id("website")} name="website" tabIndex={-1} autoComplete="off" />
         </div>
       </div>
+
+      {status === "unavailable" && (
+        <div role="alert" className="mt-8 flex items-start gap-3 rounded-sm border border-error/30 bg-error-soft p-4 text-small text-error">
+          <CircleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" strokeWidth={2} />
+          <p>
+            Online submission isn&rsquo;t available on this site yet, so your enquiry has not been sent. Please email it to{" "}
+            <a
+              className="underline underline-offset-4"
+              href={`mailto:${site.contact.email}`}
+              onClick={(e) => (e.currentTarget.href = mailtoHref())}
+            >
+              {site.contact.email}
+            </a>{" "}
+            — the link opens your email app with your details filled in.
+          </p>
+        </div>
+      )}
 
       {status === "error" && serverError && (
         <div role="alert" className="mt-8 flex items-start gap-3 rounded-sm border border-error/30 bg-error-soft p-4 text-small text-error">

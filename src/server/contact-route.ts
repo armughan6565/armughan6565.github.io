@@ -1,3 +1,12 @@
+/**
+ * Contact API route, parked outside `src/app` so it is NOT part of the static
+ * (GitHub Pages) export — static hosting cannot run server code.
+ *
+ * To restore on a Node host (Vercel, Netlify, a container…):
+ *   1. move this file back to `src/app/api/contact/route.ts`
+ *   2. remove `output: "export"` from next.config.ts
+ *   3. build with NEXT_PUBLIC_CONTACT_ENDPOINT=/api/contact and set CONTACT_WEBHOOK_URL
+ */
 import { flattenError } from "zod/mini";
 import { contactSchema } from "@/lib/contact-schema";
 import { deliverEnquiry, DeliveryNotConfiguredError } from "@/lib/contact-delivery";

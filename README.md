@@ -15,20 +15,29 @@ npm run dev                  # http://localhost:3000
 
 ```bash
 npm run lint
-npm run build
-npm start                    # serves the production build on :3000
+npm run build                # static export → out/
+npx serve out                # preview the exported site locally
 ```
 
-Deploys to any Node host (Vercel, Netlify, Render, a container). Every page is pre-rendered as static HTML. Only `/api/contact` runs server-side.
-On Vercel: import the repo and set the environment variables below. No other configuration is needed.
+The site is a **fully static export** (`output: "export"` in `next.config.ts`) deployed to
+GitHub Pages as a user site: **https://armughan6565.github.io/**.
+`.github/workflows/deploy.yml` builds and deploys on every push to `main`
+(repo Settings → Pages → Source must be **GitHub Actions**).
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Yes (prod) | Canonical URLs, sitemap, OG, JSON-LD |
-| `CONTACT_WEBHOOK_URL` | Yes (prod) | Where contact enquiries are POSTed as JSON. Without it, production returns 503 rather than silently losing enquiries |
-| `CONTACT_WEBHOOK_TOKEN` | Optional | Sent as a `Bearer` token to the webhook |
+| `NEXT_PUBLIC_SITE_URL` | Yes (prod) | Canonical URLs, sitemap, OG, JSON-LD. Set in the workflow |
+| `NEXT_PUBLIC_CONTACT_ENDPOINT` | Optional | Where the contact form POSTs. Unset on GitHub Pages → the form validates, then asks the visitor to email `site.contact.email` (mailto prefilled) |
 
-To use an email provider (Resend, Postmark, SES…) instead of a webhook, replace the body of `deliverEnquiry` in `src/lib/contact-delivery.ts`.
+### Contact form on static hosting
+
+GitHub Pages cannot run server code, so the contact API is parked at `src/server/contact-route.ts`
+(validation, honeypot, origin check, rate limit, webhook delivery — unchanged). To restore online submission on a Node host
+(Vercel, Netlify, a container): move it back to `src/app/api/contact/route.ts`, remove `output: "export"`, and build with
+`NEXT_PUBLIC_CONTACT_ENDPOINT=/api/contact` plus `CONTACT_WEBHOOK_URL` (and optional `CONTACT_WEBHOOK_TOKEN`, server-side only).
+To replace the webhook with an email provider (Resend, Postmark, SES…), edit `deliverEnquiry` in `src/lib/contact-delivery.ts`.
+
+Security headers from the previous `next.config.ts` can't be set by a static export on GitHub Pages; they are listed in `next.config.ts` for a future host.
 
 ## Structure
 
@@ -40,13 +49,14 @@ src/
     industries/  insights/ [slug]/  about/  contact/
     case-studies/[slug]/     case-study template (sample only, noindex)
     privacy/ terms/ cookies/ legal templates
-    api/contact/route.ts     contact endpoint (validation, honeypot, rate limit)
-    sitemap.ts robots.ts opengraph-image.tsx icon.svg not-found.tsx error.tsx template.tsx
+    sitemap.ts robots.ts opengraph-image.png icon.svg not-found.tsx error.tsx template.tsx
   components/
     brand/ layout/ ui/ sections/ motion/ visuals/ insights/ contact/
   content/                   structured content — CMS-ready (services, industries, insights, case-studies, company)
   config/site.ts             brand + contact details (placeholders marked)
   lib/                       seo helpers, contact schema & delivery
+  server/contact-route.ts    parked contact API (not in the static export)
+  og/opengraph-image.tsx     design source for app/opengraph-image.png
 ```
 
 ## Content & CMS
@@ -61,6 +71,6 @@ To connect a CMS, replace `getAllInsights()` / `getInsight()` with fetchers that
 - `src/content/case-studies.ts`: layout sample only. Add real, client-approved case studies.
 - Privacy, Terms and Cookie pages are **templates** and need legal review.
 - Company values and the "Focused teams" / "Independence" statements should be confirmed by the firm.
-- Contact delivery: set `CONTACT_WEBHOOK_URL`.
+- Contact: replace the placeholder email in `src/config/site.ts` (the static contact form sends visitors there), or restore the API as above.
 
 See `DESIGN-SYSTEM.md` for tokens, typography, motion and component guidelines.
