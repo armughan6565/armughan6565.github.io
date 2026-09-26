@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/*
+  DATA FOLD — DESIGN TOKENS
+  Light mode only. Default Tailwind colour/type scales are reset so every
+  colour and text size in the codebase comes from this file.
+  Full rationale: /DESIGN-SYSTEM.md
+*/
+@theme {
+  /* ---------- Colour ---------- */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-ink: #0b1220;          /* primary — text, dark surfaces */
+  --color-ink-80: #1f2937;
+  --color-muted: #475467;        /* secondary text — 7.4:1 on white */
+  --color-subtle: #667085;       /* captions, meta — 4.8:1 on white */
+
+  --color-teal: #0f766e;         /* secondary — brand, "structured" */
+  --color-teal-600: #0d9488;
+  --color-teal-soft: #e7f3f1;
+
+  --color-blue: #2563eb;         /* accent — "insight", links, focus */
+  --color-blue-soft: #eaf0fd;
+
+  --color-bg: #ffffff;
+  --color-canvas: #f5f6f8;       /* alternate section surface */
+  --color-surface: #ffffff;
+  --color-line: #e4e7ec;
+  --color-line-strong: #cfd4dc;
+
+  --color-success: #157f3c;
+  --color-success-soft: #e8f5ec;
+  --color-warning: #b54708;
+  --color-warning-soft: #fef4e6;
+  --color-error: #b42318;
+  --color-error-soft: #fdecea;
+  --color-info: #2563eb;
+
+  /* ---------- Typography ---------- */
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --text-*: initial;
+  --text-display: clamp(2.625rem, 1.5rem + 3.6vw, 4.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.038em;
+  --text-h1: clamp(2.25rem, 1.55rem + 2.8vw, 4rem);
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.032em;
+  --text-h2: clamp(1.875rem, 1.4rem + 1.9vw, 3rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.026em;
+  --text-h3: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+  --text-h3--line-height: 1.22;
+  --text-h3--letter-spacing: -0.016em;
+  --text-h4: 1.125rem;
+  --text-h4--line-height: 1.4;
+  --text-h4--letter-spacing: -0.008em;
+  --text-lead: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
+  --text-lead--line-height: 1.55;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.55;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.45;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.08em;
+
+  /* ---------- Radii / shadows ---------- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-*: initial;
+  --shadow-sm: 0 1px 2px rgb(11 18 32 / 0.05);
+  --shadow-md: 0 1px 2px rgb(11 18 32 / 0.04), 0 8px 24px -8px rgb(11 18 32 / 0.12);
+  --shadow-lg: 0 2px 4px rgb(11 18 32 / 0.04), 0 24px 48px -16px rgb(11 18 32 / 0.18);
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---------- Breakpoints (Tailwind defaults + wide) ---------- */
+  --breakpoint-3xl: 1600px;
+}
+
+:root {
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-reveal: 640ms;
+  --header-h: 72px;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-teal-soft);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    font-weight: 500;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer utilities {
+  /* Page container: 1320 content width with fluid gutters */
+  .container-x {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 0.6rem + 3vw, 3.5rem);
+  }
+  .section-y {
+    padding-block: clamp(4.5rem, 3rem + 5vw, 8rem);
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
+    line-height: var(--text-label--line-height);
+    text-transform: uppercase;
+    color: var(--color-subtle);
+  }
+  /* Faint analytic grid used as a structural motif, never decoration alone */
+  .grid-paper {
+    background-image:
+      linear-gradient(to right, rgb(11 18 32 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(11 18 32 / 0.045) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  /* Animated underline for text links */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--dur-base) var(--ease-out);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* ---------- Scroll reveal (see components/motion/reveal.tsx) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+/* Without JS the content must still be visible */
+.no-js .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Route transition (app/template.tsx) ---------- */
+@keyframes page-in {
+  from { opacity: 0; transform: translate3d(0, 8px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.page-transition {
+  animation: page-in 420ms var(--ease-out) both;
+}
+
+/* Fold stage progress (fold-visualization.tsx) */
+@keyframes stage-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
