@@ -17,8 +17,8 @@ export default function InsightsPage() {
     <>
       <PageHero
         label="Insights"
-        title="Perspectives from the practice."
-        intro="Practical thinking on risk, technology, AI, data and finance."
+        title="Insights"
+        intro="Articles on risk, technology, AI, data and finance."
         image={photos.laptopWork}
       />
       <section aria-label="Articles" className="bg-canvas pb-24 pt-12 lg:pb-32">
@@ -28,8 +28,8 @@ export default function InsightsPage() {
       </section>
       <CTASection
         label="Discuss a topic"
-        title="Want to go deeper on one of these questions?"
-        body="We're happy to discuss how they apply to your organization."
+        title="Discuss a topic."
+        body="Contact us to discuss how these topics apply to your organization."
         primary={{ href: "/contact", label: "Talk to an Advisor" }}
       />
     </>

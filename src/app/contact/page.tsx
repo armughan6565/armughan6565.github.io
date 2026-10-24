@@ -61,8 +61,8 @@ export default function ContactPage() {
     <>
       <PageHero
         label="Contact"
-        title="Start a conversation."
-        intro="Tell us what you need to decide, fix or build."
+        title="Contact us"
+        intro="Send us an enquiry and we will reply with next steps."
         image={photos.office}
       />
       <section aria-label="Contact form" className="bg-canvas py-16 lg:py-24">

@@ -27,14 +27,14 @@ export default function ServicesPage() {
     <>
       <PageHero
         label="Services"
-        title="Nine service lines. Three disciplines. One team."
-        intro="Designed to be combined — most real problems need more than one."
+        title="Services"
+        intro="Nine service lines across data, technology and business, available individually or combined."
         image={photos.dashboard}
       />
 
       <section aria-labelledby="by-domain" className="section-y bg-canvas">
         <div className="container-x">
-          <SectionHeading index="01" label="By discipline" id="by-domain" title="Every service, in context." />
+          <SectionHeading index="01" label="By discipline" id="by-domain" title="Services by discipline" />
           <div className="mt-14 space-y-16">
             {domainOrder.map((d) => (
               <Reveal key={d}>
@@ -87,7 +87,7 @@ export default function ServicesPage() {
             index="02"
             label="Ways to work together"
             id="models"
-            title="Engagements shaped around the problem."
+            title="Engagement models"
           />
           <ol className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {models.map((mo, i) => (
@@ -105,8 +105,8 @@ export default function ServicesPage() {
 
       <CTASection
         label="Not sure where to start?"
-        title="Talk to an advisor about the problem, not the service line."
-        body="Describe the situation — we'll suggest where to start."
+        title="Not sure which service you need?"
+        body="Describe your situation and we will recommend a starting point."
         primary={{ href: "/contact", label: "Talk to an Advisor" }}
       />
     </>

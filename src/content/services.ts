@@ -25,7 +25,6 @@ export interface Service {
   summary: string;
   seo: { title: string; description: string };
   hero: { headline: string; intro: string };
-  problem: { heading: string };
   approach: string;
   capabilities: { title: string; detail: string }[];
   outcomes: string[];
@@ -37,21 +36,21 @@ export interface Service {
 export const domains: Record<DomainId, { name: string; line: string; description: string }> = {
   data: {
     name: "Data",
-    line: "Turn information into evidence.",
+    line: "Analytics, data science and AI.",
     description:
-      "Analytics, data science and AI that make information usable — and trustworthy enough to act on.",
+      "Analytics, data science and AI services.",
   },
   technology: {
     name: "Technology",
-    line: "Know that your systems hold.",
+    line: "IT audit, technology risk and cyber.",
     description:
-      "Assurance, risk and security for the technology every process now depends on.",
+      "Assurance, risk and security services for your technology.",
   },
   business: {
     name: "Business",
-    line: "Make the numbers and processes work.",
+    line: "Tax, accounting and ERP.",
     description:
-      "Finance, tax and process design — where controls, reporting and operations meet.",
+      "Finance, tax and process design services.",
   },
 };
 
@@ -63,22 +62,19 @@ export const services: Service[] = [
     number: "01",
     name: "IT Audit",
     domain: "technology",
-    summary: "Independent assurance over the controls your systems and reporting depend on.",
+    summary: "Independent testing of IT general, application and ERP controls.",
     seo: {
       title: "IT Audit — ITGC, Application Controls & Technology Assurance",
       description:
         "IT general controls, application controls, ERP controls and system implementation reviews. Independent technology assurance from Data Fold.",
     },
     hero: {
-      headline: "Assurance that stands up to scrutiny.",
+      headline: "IT Audit",
       intro:
-        "We test whether the controls inside your systems actually operate — so management, auditors and boards can rely on what those systems produce.",
-    },
-    problem: {
-      heading: "Most financial and operational risk now sits inside systems.",
+        "We test the controls in your systems so that management, auditors and boards can rely on the information they produce.",
     },
     approach:
-      "We plan IT audit work around the risks that matter to your reporting and operations, test controls with evidence rather than inquiry, and write findings that owners can act on — root cause, impact and a practical fix.",
+      "Risk-based audit plans, evidence-based testing, and findings that state root cause, impact and a recommended fix.",
     capabilities: [
       { title: "IT general controls (ITGC)", detail: "Access, change, operations and program development across applications, databases and infrastructure." },
       { title: "Application controls", detail: "Automated controls, configurations, calculations, interfaces and IT-dependent manual controls." },
@@ -89,7 +85,7 @@ export const services: Service[] = [
     ],
     outcomes: [
       "Controls evidence that external auditors and regulators can rely on",
-      "Fewer late surprises in year-end and statutory audits",
+      "Fewer issues raised late in year-end and statutory audits",
       "Findings ranked by impact, with owners and realistic remediation",
       "A repeatable testing approach your team can sustain",
     ],
@@ -106,22 +102,19 @@ export const services: Service[] = [
     number: "02",
     name: "IT Risk Advisory",
     domain: "technology",
-    summary: "Governance and control frameworks that keep technology risk visible and managed.",
+    summary: "Technology risk assessment, governance and control frameworks.",
     seo: {
       title: "IT Risk Advisory — Technology Risk, IT Governance & Control Frameworks",
       description:
         "Technology risk assessments, IT governance, third-party technology risk and control maturity reviews that help leadership understand and manage IT risk.",
     },
     hero: {
-      headline: "Technology risk, made visible to the people who own it.",
+      headline: "IT Risk Advisory",
       intro:
-        "We help leadership understand where technology risk sits, how well it is controlled, and what to prioritise — in language a board can use.",
-    },
-    problem: {
-      heading: "Technology risk is rarely measured the way business risk is.",
+        "We identify technology risks, assess how well they are controlled and set priorities for remediation.",
     },
     approach:
-      "We connect technology risk to business processes and outcomes, then build governance and control frameworks sized to your organization — rigorous enough to rely on, light enough to run.",
+      "Risk assessments linked to business processes, and governance and control frameworks sized to your organization.",
     capabilities: [
       { title: "Technology risk assessments", detail: "Identify, rate and prioritise technology risks against business impact and appetite." },
       { title: "IT governance", detail: "Decision rights, policies, committees and reporting lines for technology." },
@@ -131,7 +124,7 @@ export const services: Service[] = [
       { title: "Risk remediation", detail: "Hands-on support to close findings and embed durable fixes." },
     ],
     outcomes: [
-      "A technology risk profile leadership can read and challenge",
+      "A technology risk profile for management review",
       "Controls mapped to owners, systems and evidence",
       "Clear oversight of critical third-party technology",
       "A prioritised, costed remediation roadmap",
@@ -151,22 +144,19 @@ export const services: Service[] = [
     number: "03",
     name: "Cyber Advisory",
     domain: "technology",
-    summary: "An evidence-based view of your security posture — and a plan leadership can fund.",
+    summary: "Cyber maturity assessments, vulnerability testing and security roadmaps.",
     seo: {
       title: "Cybersecurity Advisory — Cyber Risk, Maturity & Vulnerability Assessment",
       description:
         "Cyber maturity and risk assessments, security governance, vulnerability assessment, penetration testing and incident readiness from Data Fold.",
     },
     hero: {
-      headline: "Security posture you can explain — and defend.",
+      headline: "Cyber Advisory",
       intro:
-        "We assess how exposed you really are, test the controls that matter, and turn the result into a prioritised plan that leadership can fund with confidence.",
-    },
-    problem: {
-      heading: "Security spend is rising. Confidence often isn't.",
+        "We assess your security controls, test for vulnerabilities and provide a prioritised improvement plan.",
     },
     approach:
-      "We combine governance-level assessment with technical testing, so strategy is grounded in evidence and technical findings are tied to business risk.",
+      "Governance assessment combined with technical testing, with findings linked to business risk.",
     capabilities: [
       { title: "Cyber maturity assessment", detail: "Benchmark capability across governance, protection, detection and response." },
       { title: "Cyber risk assessment", detail: "Threat-informed view of the scenarios most likely to hurt your organization." },
@@ -176,10 +166,10 @@ export const services: Service[] = [
       { title: "Security awareness", detail: "Targeted awareness for staff, leadership and high-risk roles." },
     ],
     outcomes: [
-      "A clear, board-ready picture of cyber exposure",
+      "A board-level summary of cyber risk",
       "Technical findings prioritised by business impact",
-      "A sequenced roadmap that ties spend to risk reduction",
-      "Teams rehearsed for the incidents most likely to occur",
+      "A sequenced roadmap linking spend to risk reduction",
+      "Incident response plans tested through exercises",
     ],
     method: [
       { title: "Baseline", detail: "Establish current maturity and the assets and processes that matter most." },
@@ -196,22 +186,19 @@ export const services: Service[] = [
     number: "04",
     name: "Data Analytics",
     domain: "data",
-    summary: "Dashboards and analytics that leadership trusts — built on data that reconciles.",
+    summary: "Management reporting, dashboards and data quality.",
     seo: {
       title: "Data Analytics & Business Intelligence — Power BI, Tableau, SQL",
       description:
         "Management dashboards, KPI reporting, audit and financial analytics, data quality and automated reporting using Power BI, Tableau and SQL.",
     },
     hero: {
-      headline: "Reporting leadership trusts the first time.",
+      headline: "Data Analytics",
       intro:
-        "We build analytics that reconcile to source, answer the questions leaders actually ask, and refresh without a spreadsheet marathon.",
-    },
-    problem: {
-      heading: "Most organizations have plenty of reports and too little insight.",
+        "We build reports and dashboards that reconcile to source data and refresh automatically.",
     },
     approach:
-      "We start with the decisions a report must support, agree definitions, fix the data underneath, and only then design the dashboard. Adoption is part of the scope, not an afterthought.",
+      "We agree metric definitions, fix the underlying data, then design the reports and train users.",
     capabilities: [
       { title: "Business intelligence", detail: "Semantic models, KPI definitions and self-service reporting foundations." },
       { title: "Dashboards & visualization", detail: "Management and operational dashboards in Power BI, Tableau or your chosen platform." },
@@ -222,9 +209,9 @@ export const services: Service[] = [
     ],
     outcomes: [
       "One agreed version of key metrics",
-      "Hours returned from manual report preparation",
-      "Exceptions surfaced automatically instead of by chance",
-      "Dashboards that are still used a year later",
+      "Less time spent preparing reports manually",
+      "Automated exception reporting",
+      "Dashboards adopted by their intended users",
     ],
     method: [
       { title: "Define", detail: "Agree the decisions, metrics and definitions before touching tools." },
@@ -239,22 +226,19 @@ export const services: Service[] = [
     number: "05",
     name: "AI & Process Automation",
     domain: "data",
-    summary: "Practical AI and automation, governed properly and tied to measurable work.",
+    summary: "Process automation and AI solutions with appropriate controls.",
     seo: {
       title: "AI & Process Automation — Enterprise AI, RPA & Intelligent Automation",
       description:
         "AI strategy, generative AI solutions, document processing, knowledge assistants, RPA and workflow automation — designed with governance and measurable outcomes.",
     },
     hero: {
-      headline: "Automation that removes work, not just adds tools.",
+      headline: "AI & Process Automation",
       intro:
-        "We identify where AI and automation genuinely improve a process, build solutions with appropriate controls, and measure whether they deliver.",
-    },
-    problem: {
-      heading: "AI pilots are easy. Useful, governed AI in production is not.",
+        "We identify processes suited to automation and AI, build the solutions and measure the results.",
     },
     approach:
-      "We treat AI as a process and control question first and a technology question second: what work changes, what could go wrong, how will we know it's working. Then we build.",
+      "We define the process change, risks and success measures before building any solution.",
     capabilities: [
       { title: "AI strategy & use-case prioritisation", detail: "Identify, size and sequence use cases by value, feasibility and risk." },
       { title: "Generative AI solutions", detail: "Retrieval-based assistants, drafting and summarisation integrated into existing workflows." },
@@ -264,10 +248,10 @@ export const services: Service[] = [
       { title: "AI governance", detail: "Usage policies, model risk controls, human-in-the-loop design and monitoring." },
     ],
     outcomes: [
-      "Use cases chosen on evidence, not enthusiasm",
+      "Use cases selected on measured benefit",
       "Automations with clear owners, controls and fallbacks",
       "Measured reduction in manual handling time",
-      "Governance that lets you scale AI responsibly",
+      "An AI governance framework",
     ],
     method: [
       { title: "Discover", detail: "Map the process as it runs today and measure where time and errors accumulate." },
@@ -282,22 +266,19 @@ export const services: Service[] = [
     number: "06",
     name: "Data Science",
     domain: "data",
-    summary: "Forecasts, models and anomaly detection you can explain and defend.",
+    summary: "Forecasting, predictive models and anomaly detection.",
     seo: {
       title: "Data Science Consulting — Predictive Analytics, Forecasting & Machine Learning",
       description:
         "Forecasting, predictive analytics, risk modelling, customer analytics and anomaly detection built with statistical rigour and explainability.",
     },
     hero: {
-      headline: "Models that earn a place in the decision.",
+      headline: "Data Science",
       intro:
-        "We build forecasting and predictive models that are statistically sound, explainable to non-specialists, and designed to be maintained after we leave.",
-    },
-    problem: {
-      heading: "A model nobody understands rarely changes a decision.",
+        "We build forecasting and predictive models that are documented, explainable and maintainable by your team.",
     },
     approach:
-      "We choose the simplest method that answers the question well, validate it honestly against out-of-sample data, and present results with the uncertainty that belongs to them.",
+      "We use the simplest suitable method, validate it on out-of-sample data and report the uncertainty.",
     capabilities: [
       { title: "Forecasting", detail: "Demand, revenue, cash and volume forecasting with transparent assumptions." },
       { title: "Predictive analytics", detail: "Classification and regression models for churn, default, conversion and more." },
@@ -308,14 +289,14 @@ export const services: Service[] = [
     ],
     outcomes: [
       "Forecasts with explicit assumptions and error ranges",
-      "Models business owners can explain in their own words",
-      "Earlier signals of fraud, default or operational failure",
+      "Models documented in plain language",
+      "Earlier detection of fraud, default or operational failure",
       "Documented, maintainable model pipelines",
     ],
     method: [
       { title: "Frame", detail: "Translate the business question into a measurable prediction target." },
       { title: "Explore", detail: "Understand the data, its gaps and its biases before modelling." },
-      { title: "Model", detail: "Build, compare and validate candidate approaches honestly." },
+      { title: "Model", detail: "Build, compare and validate candidate models." },
       { title: "Operationalise", detail: "Deploy, monitor drift and document for the people who inherit it." },
     ],
     related: ["data-analytics", "ai-process-automation", "it-risk-advisory"],
@@ -325,22 +306,19 @@ export const services: Service[] = [
     number: "07",
     name: "Tax",
     domain: "business",
-    summary: "Tax compliance, planning and process — with the data and controls to back them up.",
+    summary: "Tax compliance, advisory and tax process improvement.",
     seo: {
       title: "Tax Advisory — Corporate Tax, Sales Tax, Compliance & Tax Process",
       description:
         "Corporate tax, sales tax, tax compliance, planning, tax risk and tax process improvement — supported by data and controls.",
     },
     hero: {
-      headline: "Tax positions you can support with data.",
+      headline: "Tax",
       intro:
-        "We help organizations meet their obligations accurately, plan with clarity, and build the processes and data that make tax less of a year-end scramble.",
-    },
-    problem: {
-      heading: "Tax risk often starts in systems and processes, not in the tax return.",
+        "We support tax compliance and planning, and improve the processes and data behind your tax figures.",
     },
     approach:
-      "We combine technical tax advice with process and data work — so positions are well reasoned and the numbers behind them are traceable.",
+      "Technical tax advice combined with process and data work, so figures are traceable.",
     capabilities: [
       { title: "Corporate tax", detail: "Computations, provisions and advisory on corporate income tax matters." },
       { title: "Sales tax & indirect tax", detail: "Registration, compliance and review of indirect tax treatment." },
@@ -370,22 +348,19 @@ export const services: Service[] = [
     number: "08",
     name: "Financial Accounting",
     domain: "business",
-    summary: "Faster, cleaner close and reporting — from IFRS judgement to finance transformation.",
+    summary: "Financial reporting, IFRS advisory and month-end close support.",
     seo: {
       title: "Financial Accounting Advisory — IFRS, Financial Close & Finance Transformation",
       description:
         "IFRS advisory, financial reporting, month-end and financial close support, management reporting, financial controls and finance transformation.",
     },
     hero: {
-      headline: "A close that is faster, calmer and easier to audit.",
+      headline: "Financial Accounting",
       intro:
-        "We support finance teams on reporting judgement, close discipline and the controls and processes that make numbers reliable month after month.",
-    },
-    problem: {
-      heading: "Finance teams spend too much time producing numbers and too little explaining them.",
+        "We support finance teams on accounting judgements, the month-end close and financial controls.",
     },
     approach:
-      "We work alongside your finance team — resolving technical accounting questions, then fixing the process and control gaps that cause the same issues to recur.",
+      "We resolve technical accounting questions and fix the process and control gaps behind recurring issues.",
     capabilities: [
       { title: "IFRS advisory", detail: "Technical accounting positions, policy papers and implementation of new standards." },
       { title: "Financial reporting", detail: "Preparation and review of financial statements and disclosures." },
@@ -398,7 +373,7 @@ export const services: Service[] = [
       "Shorter, more predictable close cycles",
       "Well-documented accounting judgements",
       "Fewer audit adjustments and management letter points",
-      "Reporting that explains performance, not just records it",
+      "Management reporting with variance analysis",
     ],
     method: [
       { title: "Assess", detail: "Review the close, reporting outputs and recurring audit points." },
@@ -413,22 +388,19 @@ export const services: Service[] = [
     number: "09",
     name: "BPR & ERP",
     domain: "business",
-    summary: "Processes redesigned around how work should flow — and ERP configured to match.",
+    summary: "Business process redesign, and ERP selection and implementation.",
     seo: {
       title: "Business Process Re-engineering & ERP Consulting — SAP, Oracle, Dynamics",
       description:
         "Business process assessment and redesign, ERP advisory, implementation and transformation across procure-to-pay, order-to-cash, record-to-report and hire-to-retire.",
     },
     hero: {
-      headline: "Processes that fit the business. Systems that fit the process.",
+      headline: "BPR & ERP",
       intro:
-        "We redesign end-to-end processes and help select, implement and optimise ERP platforms — with controls built in from the first design workshop.",
-    },
-    problem: {
-      heading: "ERP projects often automate the problems they were meant to fix.",
+        "We redesign business processes and help select, implement and optimise ERP systems, with controls designed in.",
     },
     approach:
-      "We design the process first, then the system: standard where possible, configured where necessary, customised only when there is a clear business case — and always with the control implications understood.",
+      "Process design first, then system configuration, with customisation only where there is a clear business case.",
     capabilities: [
       { title: "Process assessment & redesign", detail: "Current-state mapping, pain-point analysis and future-state design." },
       { title: "ERP advisory & selection", detail: "Requirements, vendor evaluation and business case for ERP decisions." },
@@ -440,7 +412,7 @@ export const services: Service[] = [
     outcomes: [
       "Processes agreed before configuration begins",
       "Fewer customisations and cleaner upgrades",
-      "Controls designed in, not retrofitted",
+      "Controls included in the system design",
       "Adoption supported by clear roles and training",
     ],
     method: [

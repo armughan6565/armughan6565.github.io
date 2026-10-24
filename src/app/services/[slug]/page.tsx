@@ -105,9 +105,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         <div className="container-x">
           <SectionHeading
             index="01"
-            label="What we do"
+            label="Overview"
             id="what"
-            title={s.problem.heading}
+            title="What we do"
             intro={s.approach}
             split
           />
@@ -137,7 +137,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             <img src={img(serviceImages[s.slug], 1200)} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
           </Reveal>
           <div>
-            <SectionHeading index="02" label="Business outcomes" id="outcomes" title="What changes for you." />
+            <SectionHeading index="02" label="Business outcomes" id="outcomes" title="Outcomes" />
             <ul className="mt-10 space-y-4">
               {s.outcomes.map((o, i) => (
                 <Reveal as="li" key={o} delay={i * 60} className="flex gap-4 rounded-lg bg-white p-5 shadow-sm">
@@ -158,7 +158,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               <span className="text-mint">03</span> — Methodology
             </p>
             <h2 id="method" className="mt-5 max-w-3xl text-h2">
-              {s.name}, step by step.
+              Our methodology
             </h2>
           </Reveal>
           <ol className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
@@ -184,7 +184,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       {/* 04 Related */}
       <section aria-labelledby="related" className="section-y">
         <div className="container-x">
-          <SectionHeading index="04" label="Related services" id="related" title="Often combined with." />
+          <SectionHeading index="04" label="Related services" id="related" title="Related services" />
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
             {related.map((r, i) => (
               <Reveal as="li" key={r.slug} delay={i * 70}>
@@ -216,8 +216,8 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
       <CTASection
         label={s.name}
-        title={`Talk to us about ${s.name}.`}
-        body="Share what you're facing — we'll suggest where to start."
+        title={`Contact us about ${s.name}.`}
+        body="Tell us about your requirements and we will propose a scope."
         primary={{ href: `/contact?service=${s.slug}`, label: "Request a Consultation" }}
         secondary={{ href: "/services", label: "All services" }}
       />

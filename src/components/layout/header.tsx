@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
-import { ButtonLink } from "@/components/ui/button";
 import { domainOrder, domains, servicesByDomain } from "@/content/services";
 
 const primaryNav = [
@@ -116,11 +115,6 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <span className="hidden sm:block">
-            <ButtonLink href="/contact" className="!h-10 !px-5">
-              Start a Conversation
-            </ButtonLink>
-          </span>
           <button
             type="button"
             className="-mr-2 grid size-11 place-items-center text-ink lg:hidden"
@@ -151,7 +145,7 @@ export function Header() {
             <div>
               <p className="eyebrow">Services</p>
               <p className="mt-4 text-h4 text-ink">
-                Nine service lines across three disciplines — working on the same problem.
+                Nine service lines across three disciplines.
               </p>
             </div>
             <Link
@@ -252,11 +246,6 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <div className="container-x shrink-0 border-t border-line py-5">
-          <ButtonLink href="/contact" className="w-full">
-            Start a Conversation
-          </ButtonLink>
-        </div>
       </dialog>
     </header>
   );

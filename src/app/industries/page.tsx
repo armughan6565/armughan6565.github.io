@@ -20,8 +20,8 @@ export default function IndustriesPage() {
     <>
       <PageHero
         label="Industries"
-        title="Different sectors. The same need for clarity."
-        intro="Can we trust our systems, our data and our numbers? Here's how we help in each sector."
+        title="Industries"
+        intro="How our services apply in each sector."
         image="1444653614773-995cb1ef9efa"
       />
 
@@ -76,8 +76,8 @@ export default function IndustriesPage() {
 
       <CTASection
         label="Your sector"
-        title="Tell us about the pressures in your organization."
-        body="We'll be clear about where we can help — and where we can't."
+        title="Discuss your sector."
+        body="Tell us about your organization and the support you need."
         primary={{ href: "/contact", label: "Request a Consultation" }}
         secondary={{ href: "/services", label: "Explore Our Services" }}
       />

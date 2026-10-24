@@ -23,7 +23,7 @@ export default function AboutPage() {
     <>
       <PageHero
         label="About Data Fold"
-        title="Risk, data and finance belong in the same conversation."
+        title="A multidisciplinary advisory firm."
         image={photos.teamTable}
         aside={
           <dl className="grid grid-cols-2 gap-6 border-t border-white/25 pt-6">
@@ -43,15 +43,14 @@ export default function AboutPage() {
       <section aria-labelledby="story" className="section-y">
         <div className="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
-            <SectionHeading index="01" label="Our story" id="story" title="Why we started." />
+            <SectionHeading index="01" label="Our story" id="story" title="Our story" />
             <Reveal className="mt-8 space-y-5 text-lead text-muted" delay={80}>
               <p>
-                A reporting problem is usually a data problem. A data problem is usually a control problem. Traditional
-                advisory splits these across teams and reports.
+                Reporting, data and control issues are often linked, but are usually handled by separate advisers.
               </p>
               <p className="text-ink">
-                We founded Data Fold in {site.headquarters.city} in {site.founded} to solve them together, with a
-                global outlook from day one.
+                Data Fold was founded in {site.headquarters.city} in {site.founded} to address them with a single
+                team, for clients in Pakistan and internationally.
               </p>
             </Reveal>
           </div>
@@ -86,7 +85,7 @@ export default function AboutPage() {
       {/* Values */}
       <section aria-labelledby="values" className="section-y">
         <div className="container-x">
-          <SectionHeading index="02" label="Values" id="values" title="What we hold ourselves to." />
+          <SectionHeading index="02" label="Values" id="values" title="Our values" />
           <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => {
               const Icon = valueIcons[i];
@@ -112,7 +111,7 @@ export default function AboutPage() {
       {/* Disciplines + how we work */}
       <section aria-labelledby="multi" className="section-y bg-canvas">
         <div className="container-x">
-          <SectionHeading index="03" label="How we work" id="multi" title="Three disciplines. Four steps." />
+          <SectionHeading index="03" label="How we work" id="multi" title="How we work" />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {domainOrder.map((d, i) => (
               <Reveal key={d} delay={i * 90} className="relative overflow-hidden rounded-lg bg-white p-7 shadow-sm">
@@ -143,8 +142,8 @@ export default function AboutPage() {
 
       <CTASection
         label="Work with us"
-        title="Let's talk about what you need to decide."
-        body="A single review or a broader transformation — it starts with a conversation."
+        title="Work with us."
+        body="Contact us to discuss a review, project or ongoing support."
         primary={{ href: "/contact", label: "Start a Conversation" }}
         secondary={{ href: "/services", label: "Explore Our Services" }}
       />

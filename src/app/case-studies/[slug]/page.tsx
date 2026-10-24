@@ -78,8 +78,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/case-studies
         </Block>
       </div>
       <CTASection
-        title="Facing a similar challenge?"
-        body="Tell us about your situation and we will outline how we would approach it."
+        title="Discuss a similar project."
+        body="Tell us about your situation and we will outline an approach."
         primary={{ href: "/contact?intent=project", label: "Discuss a Project" }}
       />
     </>

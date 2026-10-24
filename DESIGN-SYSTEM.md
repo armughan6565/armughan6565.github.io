@@ -7,10 +7,10 @@ Tokens live in `src/app/globals.css` (`@theme`). Tailwind's default colour and t
 | | |
 |---|---|
 | Positioning | A multidisciplinary technology and business consultancy — technology, data, risk and finance in one team |
-| Tagline | **Complexity, folded into clarity.** |
+| Tagline | **Audit, risk and data advisory.** |
 | Personality | Trust · Intelligence · Technology · Transformation |
 
-**Tagline candidates considered:** "Decisions, unfolded." (clever but vague) · "Where data meets decision." (excludes risk/finance) · "Clarity from complexity." (generic) · **"Complexity, folded into clarity."** — chosen: it carries the name, works across every service line and reads as a promise rather than a slogan.
+**Copy tone:** plain and precise, in the style of audit firms. Headlines name the thing ("IT Audit", "Our services"); no slogans or unqualified claims.
 
 ### Logo
 A flat plane (data as it is) beside a plane folding away in perspective (the same data reduced into a new dimension). The silhouette also reads as an abstract "D". Two flat colours, no gradients, legible at 16px.

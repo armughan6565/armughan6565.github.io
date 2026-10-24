@@ -136,8 +136,8 @@ export default async function InsightPage({ params }: PageProps<"/insights/[slug
 
       <CTASection
         label="Continue the conversation"
-        title="Facing this question in your organization?"
-        body="We can help you work out what it means for your systems, data and controls."
+        title="Discuss this topic."
+        body="Contact us to discuss how it applies to your organization."
         primary={{ href: "/contact", label: "Talk to an Advisor" }}
         secondary={{ href: "/insights", label: "More insights" }}
       />

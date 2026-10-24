@@ -4,13 +4,10 @@ import { ButtonLink } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { NumberTicker, Marquee } from "@/components/motion/magic";
-import { InsightCard } from "@/components/insights/insight-card";
 import { CTASection } from "@/components/sections/cta-section";
 import { industries } from "@/content/industries";
-import { getAllInsights } from "@/content/insights";
 import { domainOrder, domains, services } from "@/content/services";
 import { domainColor, img, industryImages, photos, serviceImages } from "@/content/media";
-import { approach } from "@/content/company";
 import { site } from "@/config/site";
 
 export default function HomePage() {
@@ -21,12 +18,10 @@ export default function HomePage() {
       <ServicesSection />
       <WhySection />
       <IndustriesSection />
-      <ApproachSection />
-      <InsightsSection />
       <CTASection
         label="Start a conversation"
-        title="Bring us the problem that crosses departments."
-        body="Tell us what you need to decide, fix or build."
+        title="Discuss your requirements."
+        body="Tell us about your project and we will respond with a proposed scope."
         primary={{ href: "/contact", label: "Discuss a Project" }}
         secondary={{ href: "/services", label: "Explore Our Services" }}
       />
@@ -58,9 +53,9 @@ function Hero() {
             <span className="shiny-text">Technology · Data · Risk · Finance</span>
           </p>
           <h1 id="hero-title" className="mt-8 max-w-[16ch] text-display">
-            Where technology, data and risk become <span className="text-gradient">decisions.</span>
+            Audit, risk and data <span className="text-gradient">advisory.</span>
           </h1>
-          <p className="mt-6 max-w-lg text-lead text-white/75">{site.tagline} One multidisciplinary team.</p>
+          <p className="mt-6 max-w-lg text-lead text-white/75">IT audit, cyber, data, AI, tax, accounting and ERP services from one team.</p>
           <div className="mt-10 flex flex-wrap gap-3">
             <ButtonLink href="/contact" variant="inverse">
               Discuss a Project
@@ -113,7 +108,7 @@ function ServicesSection() {
     <section aria-labelledby="svc" className="section-y bg-canvas">
       <div className="container-x">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading index="01" label="Services" id="svc" title="Nine services. One connected view." />
+          <SectionHeading index="01" label="Services" id="svc" title="Our services" />
           <div className="mb-2 flex flex-wrap gap-4">
             {domainOrder.map((d) => (
               <span key={d} className="inline-flex items-center gap-2 text-small text-muted">
@@ -163,10 +158,10 @@ function ServicesSection() {
 /* ------------------------------------------------------------------ Why */
 
 const principles = [
-  { icon: Layers, title: "Multidisciplinary", body: "Risk, data, tech and finance in one team." },
-  { icon: Users, title: "Focused teams", body: "Small, senior and close to the work." },
-  { icon: FileCheck2, title: "Evidence-led", body: "If we can't show it, we don't claim it." },
-  { icon: KeyRound, title: "Built to hand over", body: "Capability you keep, not dependency." },
+  { icon: Layers, title: "Multidisciplinary", body: "Risk, data, technology and finance specialists on one team." },
+  { icon: Users, title: "Focused teams", body: "Small teams, with the same people from scoping to delivery." },
+  { icon: FileCheck2, title: "Evidence-led", body: "Findings are supported by testing and data." },
+  { icon: KeyRound, title: "Built to hand over", body: "Documentation and training are included in scope." },
 ];
 
 function WhySection() {
@@ -189,7 +184,7 @@ function WhySection() {
           </div>
         </Reveal>
         <div>
-          <SectionHeading index="02" label="Why Data Fold" id="why" title="Built for problems that cross boundaries." />
+          <SectionHeading index="02" label="Why Data Fold" id="why" title="How we are different" />
           <ul className="mt-10 grid gap-4 sm:grid-cols-2">
             {principles.map((p, i) => (
               <Reveal
@@ -221,7 +216,7 @@ function IndustriesSection() {
         <Reveal>
           <p className="eyebrow !text-mint">03 — Industries</p>
           <h2 id="ind" className="mt-5 text-h2">
-            Every sector. The same questions.
+            Industries we serve
           </h2>
         </Reveal>
         <ButtonLink href="/industries" variant="ghost">
@@ -250,55 +245,6 @@ function IndustriesSection() {
           </Link>
         ))}
       </Marquee>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------- Approach */
-
-const stepColors = ["bg-sky", "bg-mint", "bg-amber", "bg-violet"];
-
-function ApproachSection() {
-  return (
-    <section aria-labelledby="approach" className="section-y">
-      <div className="container-x">
-        <SectionHeading index="04" label="Approach" id="approach" title="Four steps, every engagement." />
-        <ol className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {approach.map((s, i) => (
-            <Reveal as="li" key={s.title} delay={i * 110} className="relative overflow-hidden rounded-lg border border-line bg-white p-7">
-              <span aria-hidden="true" className={`absolute inset-x-0 top-0 h-1 ${stepColors[i]}`} />
-              <span className="font-mono text-h2 text-line-strong">0{i + 1}</span>
-              <h3 className="mt-4 text-h3">{s.title}</h3>
-              <p className="mt-2 text-small text-muted">{s.body}</p>
-            </Reveal>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------- Insights */
-
-function InsightsSection() {
-  const latest = getAllInsights().slice(0, 3);
-  return (
-    <section aria-labelledby="ins" className="section-y bg-canvas">
-      <div className="container-x">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading index="05" label="Insights" id="ins" title="Perspectives from the practice." />
-          <ButtonLink href="/insights" variant="text" className="mb-2">
-            Explore Our Insights
-          </ButtonLink>
-        </div>
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
-          {latest.map((ins, i) => (
-            <Reveal key={ins.slug} delay={i * 80}>
-              <InsightCard insight={ins} />
-            </Reveal>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

@@ -8,10 +8,10 @@ export const approach = [
 ];
 
 export const mission =
-  "To help organizations turn technology, data and risk into decisions they can act on with confidence.";
+  "To give organizations reliable assurance and advice on their technology, data, risk and finance.";
 
 export const vision =
-  "A world where organizations of every size have the clarity over their systems, data and controls that was once available only to the largest.";
+  "To make specialist audit and advisory services accessible to organizations of every size.";
 
 export const values = [
   { title: "Clarity", body: "Plain language: what we found and what to do." },

@@ -5,7 +5,7 @@
 export const site = {
   name: "Data Fold",
   legalName: "Data Fold", // PLACEHOLDER — confirm registered legal entity name
-  tagline: "Complexity, folded into clarity.",
+  tagline: "Audit, risk and data advisory.",
   description:
     "Data Fold is a multidisciplinary consultancy working across IT audit, risk, cybersecurity, data, AI, tax, finance and ERP — helping organizations turn technology, data and risk into better business decisions.",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.example.com").replace(/\/$/, ""), // PLACEHOLDER domain
