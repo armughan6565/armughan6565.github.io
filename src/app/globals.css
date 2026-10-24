@@ -25,6 +25,13 @@
   --color-blue: #2563eb;         /* accent — "insight", links, focus */
   --color-blue-soft: #eaf0fd;
 
+  /* Vivid accents — dark surfaces and per-discipline colour coding */
+  --color-navy: #06142b;         /* hero / dark band surface */
+  --color-mint: #2dd4bf;         /* bright brand accent on dark */
+  --color-sky: #38bdf8;          /* Data */
+  --color-amber: #f59e0b;        /* Business */
+  --color-violet: #8b5cf6;
+
   --color-bg: #ffffff;
   --color-canvas: #f5f6f8;       /* alternate section surface */
   --color-surface: #ffffff;
@@ -169,23 +176,88 @@
   }
 }
 
-/* ---------- Scroll reveal (see components/motion/reveal.tsx) ---------- */
+/* ---------- Scroll reveal (see components/motion/reveal.tsx) — Magic UI "blur fade" ---------- */
 .reveal {
   opacity: 0;
+  filter: blur(6px);
   transform: translate3d(0, 20px, 0);
   transition:
     opacity var(--dur-reveal) var(--ease-out),
+    filter var(--dur-reveal) var(--ease-out),
     transform var(--dur-reveal) var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
-.reveal[data-shown="true"] {
+.reveal[data-shown="true"],
+.no-js .reveal {  /* without JS the content must still be visible */
   opacity: 1;
+  filter: none;
   transform: none;
 }
-/* Without JS the content must still be visible */
-.no-js .reveal {
+
+/* ---------- Magic UI-style effects (components/motion/magic.tsx) ---------- */
+@keyframes marquee {
+  to { transform: translateX(calc(-50% - 0.75rem)); }
+}
+.marquee-track {
+  animation: marquee 45s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Shiny text: a light sweep across gradient-clipped text */
+@keyframes shine {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+.shiny-text {
+  background: linear-gradient(110deg, currentColor 40%, #ffffff 50%, currentColor 60%) 0 0 / 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+}
+
+/* Gradient text for headline emphasis */
+.text-gradient {
+  background: linear-gradient(90deg, var(--color-mint), var(--color-sky));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Border beam: a light travelling around a card's border on hover */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes beam-spin {
+  to { --beam-angle: 360deg; }
+}
+.border-beam {
+  position: relative;
+  isolation: isolate;
+}
+.border-beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--beam-angle), transparent 70%, var(--color-mint), var(--color-sky), transparent);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+  animation: beam-spin 3s linear infinite;
+  pointer-events: none;
+}
+.border-beam:hover::before,
+.border-beam:focus-within::before {
   opacity: 1;
-  transform: none;
 }
 
 /* ---------- Route transition (app/template.tsx) ---------- */
@@ -211,5 +283,6 @@
     transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .reveal { opacity: 1; filter: none; transform: none; }
+  .marquee-track { animation: none; }
 }

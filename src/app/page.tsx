@@ -1,35 +1,32 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Layers, Users, FileCheck2, KeyRound, Sparkles } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
-import { FoldVisualization } from "@/components/visuals/fold-visualization";
-import { ServiceEcosystem } from "@/components/visuals/service-ecosystem";
-import { EvidenceLens } from "@/components/visuals/evidence-lens";
+import { NumberTicker, Marquee } from "@/components/motion/magic";
 import { InsightCard } from "@/components/insights/insight-card";
 import { CTASection } from "@/components/sections/cta-section";
 import { industries } from "@/content/industries";
 import { getAllInsights } from "@/content/insights";
-import { getService, type ServiceSlug } from "@/content/services";
-import { site } from "@/config/site";
+import { domainOrder, domains, services } from "@/content/services";
+import { domainColor, img, industryImages, photos, serviceImages } from "@/content/media";
 import { approach } from "@/content/company";
+import { site } from "@/config/site";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <Positioning />
-      <EcosystemSection />
+      <Stats />
+      <ServicesSection />
       <WhySection />
-      <EvidenceSection />
       <IndustriesSection />
       <ApproachSection />
-      <CapabilitiesSection />
       <InsightsSection />
       <CTASection
         label="Start a conversation"
         title="Bring us the problem that crosses departments."
-        body="Tell us what you are trying to decide, fix or build. We will tell you honestly how we can help — and where we can't."
+        body="Tell us what you need to decide, fix or build."
         primary={{ href: "/contact", label: "Discuss a Project" }}
         secondary={{ href: "/services", label: "Explore Our Services" }}
       />
@@ -41,210 +38,119 @@ export default function HomePage() {
 
 function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative overflow-hidden pt-[var(--header-h)]">
+    <section aria-labelledby="hero-title" className="relative overflow-hidden bg-navy pt-[var(--header-h)] text-white">
+      {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+      <img
+        src={img(photos.skyline, 2000)}
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        className="absolute inset-0 size-full object-cover"
+      />
       <div
         aria-hidden="true"
-        className="grid-paper absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]"
+        className="absolute inset-0 bg-[linear-gradient(100deg,rgb(6_20_43/0.97)_20%,rgb(6_20_43/0.7)_60%,rgb(15_118_110/0.5))]"
       />
-      <div className="container-x relative grid items-center gap-12 pb-16 pt-12 md:pt-16 lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-16">
-        <div className="lg:col-span-7">
-          <p className="eyebrow">Technology · Data · Risk · Finance</p>
-          <h1 id="hero-title" className="mt-6 max-w-[14ch] text-display">
-            Where technology, data and risk become <span className="text-teal">decisions.</span>
-          </h1>
-          <p className="mt-8 max-w-xl text-lead text-muted">
-            Data Fold is a multidisciplinary consultancy. We help organizations understand risk, transform data,
-            modernize processes and adopt technology — then act on what they learn with confidence.
+      <div className="container-x relative flex min-h-[min(82vh,760px)] flex-col justify-center py-20">
+        <Reveal>
+          <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-caption text-mint backdrop-blur">
+            <Sparkles aria-hidden="true" strokeWidth={1.75} className="size-3.5" />
+            <span className="shiny-text">Technology · Data · Risk · Finance</span>
           </p>
+          <h1 id="hero-title" className="mt-8 max-w-[16ch] text-display">
+            Where technology, data and risk become <span className="text-gradient">decisions.</span>
+          </h1>
+          <p className="mt-6 max-w-lg text-lead text-white/75">{site.tagline} One multidisciplinary team.</p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href="/contact">Discuss a Project</ButtonLink>
-            <ButtonLink href="/services" variant="secondary">
+            <ButtonLink href="/contact" variant="inverse">
+              Discuss a Project
+            </ButtonLink>
+            <ButtonLink href="/services" variant="ghost">
               Explore Our Services
             </ButtonLink>
           </div>
-        </div>
-        <div className="lg:col-span-5">
-          <div className="border border-line bg-white/80 p-4 shadow-sm backdrop-blur-[2px] sm:p-6">
-            <div className="flex items-center justify-between border-b border-line pb-3">
-              <span className="eyebrow">The Fold</span>
-              <span className="eyebrow hidden sm:inline lg:hidden xl:inline">Complexity → Insight → Action</span>
-            </div>
-            <FoldVisualization className="pt-4" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------- Positioning */
-
-const facts = [
-  { k: "Founded", v: String(site.founded) },
-  { k: "Headquarters", v: `${site.headquarters.city}, ${site.headquarters.country}` },
-  { k: "Reach", v: "Global engagements" },
-  { k: "Practice", v: "9 service lines" },
-];
-
-function Positioning() {
-  return (
-    <section aria-label="Positioning" className="border-y border-line">
-      <div className="container-x grid gap-12 py-16 md:py-20 lg:grid-cols-12">
-        <Reveal className="lg:col-span-7">
-          <p className="text-h3 !font-normal text-ink">
-            Most organizations don&rsquo;t lack data, controls or technology. They lack a clear line from those things to
-            a decision. <span className="text-muted">That line is what we build.</span>
-          </p>
         </Reveal>
-        <dl className="grid grid-cols-2 gap-x-8 gap-y-8 lg:col-span-4 lg:col-start-9">
-          {facts.map((f, i) => (
-            <Reveal key={f.k} delay={i * 60}>
-              <dt className="eyebrow">{f.k}</dt>
-              <dd className="mt-2 text-body text-ink">{f.v}</dd>
-            </Reveal>
-          ))}
-        </dl>
       </div>
+      <div aria-hidden="true" className="relative h-1 bg-gradient-to-r from-mint via-sky to-amber" />
     </section>
   );
 }
 
-/* ------------------------------------------------------------ Ecosystem */
+/* --------------------------------------------------------------- Stats */
 
-function EcosystemSection() {
-  return (
-    <section aria-labelledby="eco" className="section-y">
-      <div className="container-x">
-        <SectionHeading
-          index="01"
-          label="Services"
-          id="eco" title="Nine service lines. One connected view of the problem."
-          intro="Risk, data and finance questions rarely arrive separately. Select a service to see what it covers and the capabilities that connect it to the rest of the practice."
-          split
-        />
-        <div className="mt-16 lg:mt-20">
-          <ServiceEcosystem />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ Why */
-
-const principles = [
-  {
-    title: "Multidisciplinary by design",
-    body: "Risk, data, technology and finance specialists work as one team — so a control gap, a data problem and a broken process are solved together, not in three separate reports.",
-  },
-  {
-    title: "Focused teams",
-    body: "We keep engagement teams small and close to the work. Context isn't lost between the people who scope an engagement and the people who deliver it.",
-  },
-  {
-    title: "Evidence over assertion",
-    body: "Recommendations come with the testing, analysis and data behind them. If we can't show it, we don't claim it.",
-  },
-  {
-    title: "Built to hand over",
-    body: "Documentation, training and clear ownership are part of the scope. The goal is capability you keep, not dependency on us.",
-  },
+const stats = [
+  { value: services.length, label: "Service lines" },
+  { value: domainOrder.length, label: "Disciplines, one team" },
+  { value: industries.length, label: "Industries supported" },
+  { value: site.founded, label: `Founded in ${site.headquarters.city}`, static: true },
 ];
 
-function WhySection() {
+function Stats() {
   return (
-    <section aria-labelledby="why" className="section-y border-t border-line">
-      <div className="container-x grid gap-14 lg:grid-cols-12">
-        <div className="lg:col-span-5 lg:pr-8">
-          <SectionHeading index="02" label="Why Data Fold" id="why" title="Built for problems that cross boundaries." />
-        </div>
-        <ol className="grid border-t border-line sm:grid-cols-2 lg:col-span-7">
-          {principles.map((p, i) => (
-            <Reveal
-              as="li"
-              key={p.title}
-              delay={i * 70}
-              className={`border-b border-line py-8 sm:py-10 ${i % 2 === 0 ? "sm:border-r sm:pr-10" : "sm:pl-10"}`}
-            >
-              <span className="font-mono text-label text-teal">0{i + 1}</span>
-              <h3 className="mt-4 text-h4">{p.title}</h3>
-              <p className="mt-3 text-small text-muted">{p.body}</p>
-            </Reveal>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------- Evidence */
-
-function EvidenceSection() {
-  return (
-    <section aria-labelledby="evidence" className="section-y bg-canvas">
-      <div className="container-x grid items-center gap-14 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <SectionHeading
-            index="03"
-            label="How we think"
-            id="evidence" title="Evidence changes the decision."
-            intro="Initiatives are often prioritised on assumption. Testing controls, analysing the data and mapping the process narrows the uncertainty — and sometimes moves an initiative into a different category altogether."
-          />
-          <Reveal delay={120}>
-            <ul className="mt-10 space-y-4 border-t border-line pt-8">
-              {[
-                "Assumed positions carry wide, often unstated, uncertainty.",
-                "Evidence tightens the estimate and exposes hidden risk.",
-                "Priorities become defensible to boards, auditors and regulators.",
-              ].map((t) => (
-                <li key={t} className="flex gap-3 text-small text-ink">
-                  <span aria-hidden="true" className="mt-[0.6em] h-px w-4 shrink-0 bg-teal" />
-                  {t}
-                </li>
-              ))}
-            </ul>
+    <section aria-label="Data Fold at a glance" className="border-b border-line">
+      <dl className="container-x grid grid-cols-2 lg:grid-cols-4">
+        {stats.map((s, i) => (
+          <Reveal
+            key={s.label}
+            delay={i * 80}
+            className={`py-10 lg:py-14 ${i % 2 ? "pl-6 sm:pl-10" : ""} ${i > 0 ? "lg:border-l lg:border-line lg:pl-10" : ""}`}
+          >
+            <dd className="text-h1 text-ink">
+              {"static" in s ? s.value : <NumberTicker value={s.value} />}
+            </dd>
+            <dt className="mt-2 text-small text-muted">{s.label}</dt>
           </Reveal>
-        </div>
-        <Reveal className="lg:col-span-6 lg:col-start-7" delay={100}>
-          <div className="border border-line bg-white p-5 sm:p-8">
-            <EvidenceLens />
-          </div>
-        </Reveal>
-      </div>
+        ))}
+      </dl>
     </section>
   );
 }
 
-/* ------------------------------------------------------------ Industries */
+/* ------------------------------------------------------------- Services */
 
-function IndustriesSection() {
+function ServicesSection() {
   return (
-    <section aria-labelledby="ind" className="section-y">
+    <section aria-labelledby="svc" className="section-y bg-canvas">
       <div className="container-x">
-        <SectionHeading
-          index="04"
-          label="Industries"
-          id="ind" title="Different sectors. The same underlying questions."
-          intro="Every organization now runs on systems, data and controls. Here is how Data Fold can support organizations across sectors."
-          split
-        />
-        <ul className="mt-14 border-t border-ink">
-          {industries.map((ind, i) => (
-            <Reveal as="li" key={ind.slug} delay={Math.min(i, 5) * 40} className="border-b border-line">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <SectionHeading index="01" label="Services" id="svc" title="Nine services. One connected view." />
+          <div className="mb-2 flex flex-wrap gap-4">
+            {domainOrder.map((d) => (
+              <span key={d} className="inline-flex items-center gap-2 text-small text-muted">
+                <span aria-hidden="true" className={`size-2.5 rounded-full ${domainColor[d].bg}`} />
+                {domains[d].name}
+              </span>
+            ))}
+          </div>
+        </div>
+        <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s, i) => (
+            <Reveal as="li" key={s.slug} delay={(i % 3) * 80}>
               <Link
-                href={`/industries#${ind.slug}`}
-                className="group grid items-baseline gap-2 py-5 transition-colors hover:bg-canvas md:grid-cols-12 md:gap-6 md:px-2"
+                href={`/services/${s.slug}`}
+                className="border-beam group relative flex h-72 flex-col justify-end overflow-hidden rounded-lg bg-navy p-6 text-white shadow-md"
               >
-                <span className="font-mono text-label text-subtle md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
-                <span className="text-h4 !text-[1.25rem] text-ink transition-transform duration-[var(--dur-base)] group-hover:translate-x-1 md:col-span-4">
-                  {ind.name}
-                </span>
-                <span className="text-small text-muted md:col-span-6">{ind.pressure}</span>
-                <ArrowRight
-                  aria-hidden="true"
-                  strokeWidth={1.5}
-                  className="hidden size-5 justify-self-end text-subtle transition-all group-hover:translate-x-1 group-hover:text-teal md:col-span-1 md:block"
+                {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+                <img
+                  src={img(serviceImages[s.slug], 800)}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 size-full object-cover opacity-70 transition-transform duration-700 ease-out group-hover:scale-110"
                 />
+                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent" />
+                <span className="relative flex items-center gap-2 font-mono text-label uppercase tracking-[0.08em]">
+                  <span aria-hidden="true" className={`size-2 rounded-full ${domainColor[s.domain].bg}`} />
+                  <span className={domainColor[s.domain].text}>{domains[s.domain].name}</span>
+                </span>
+                <span className="relative mt-3 flex items-center justify-between gap-4 text-h3">
+                  {s.name}
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    strokeWidth={1.5}
+                    className="size-6 shrink-0 transition-transform duration-[var(--dur-base)] group-hover:-translate-y-1 group-hover:translate-x-1"
+                  />
+                </span>
+                <span className="relative mt-2 line-clamp-2 text-small text-white/70">{s.summary}</span>
               </Link>
             </Reveal>
           ))}
@@ -254,90 +160,119 @@ function IndustriesSection() {
   );
 }
 
-/* -------------------------------------------------------------- Approach */
+/* ------------------------------------------------------------------ Why */
 
-function ApproachSection() {
+const principles = [
+  { icon: Layers, title: "Multidisciplinary", body: "Risk, data, tech and finance in one team." },
+  { icon: Users, title: "Focused teams", body: "Small, senior and close to the work." },
+  { icon: FileCheck2, title: "Evidence-led", body: "If we can't show it, we don't claim it." },
+  { icon: KeyRound, title: "Built to hand over", body: "Capability you keep, not dependency." },
+];
+
+function WhySection() {
   return (
-    <section aria-labelledby="approach" className="section-y bg-ink text-white">
-      <div className="container-x">
-        <Reveal className="grid gap-6 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <p className="eyebrow !text-white/60">
-              <span className="text-[#5eead4]">05</span> — Approach
-            </p>
-            <h2 id="approach" className="mt-5 text-h2">
-              From the decision you need to make, back to the evidence it needs.
-            </h2>
+    <section aria-labelledby="why" className="section-y">
+      <div className="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+        <Reveal className="relative">
+          <div className="overflow-hidden rounded-lg shadow-lg">
+            {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+            <img
+              src={img(photos.team, 1200)}
+              alt="Consultants collaborating around a laptop"
+              loading="lazy"
+              className="aspect-[4/3] w-full object-cover"
+            />
           </div>
-          <p className="text-lead text-white/70 lg:col-span-5 lg:self-end">
-            Every engagement follows the same four movements, whether it is a control review, a dashboard or an ERP
-            programme.
-          </p>
+          <div className="absolute -bottom-6 -right-2 hidden rounded-lg bg-teal p-6 text-white shadow-lg sm:block lg:-right-8">
+            <p className="text-h3">Vendor-independent</p>
+            <p className="mt-1 text-caption text-white/80">Advice not tied to any platform</p>
+          </div>
         </Reveal>
-        <ol className="relative mt-16 grid gap-10 md:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-0">
-          {approach.map((s, i) => (
-            <Reveal as="li" key={s.title} delay={i * 110} className="relative lg:pr-10">
-              <div className="flex items-center gap-4">
-                <span className="grid size-9 place-items-center rounded-full border border-white/25 font-mono text-label">
-                  0{i + 1}
+        <div>
+          <SectionHeading index="02" label="Why Data Fold" id="why" title="Built for problems that cross boundaries." />
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+            {principles.map((p, i) => (
+              <Reveal
+                as="li"
+                key={p.title}
+                delay={i * 80}
+                className="rounded-lg border border-line p-6 transition-colors duration-[var(--dur-base)] hover:border-teal hover:bg-teal-soft/40"
+              >
+                <span className="grid size-11 place-items-center rounded-md bg-teal-soft text-teal">
+                  <p.icon aria-hidden="true" strokeWidth={1.75} className="size-5" />
                 </span>
-                <span aria-hidden="true" className="hidden h-px flex-1 bg-white/15 lg:block" />
-              </div>
-              <h3 className="mt-6 text-h3">{s.title}</h3>
-              <p className="mt-3 text-small text-white/70">{s.body}</p>
-            </Reveal>
-          ))}
-        </ol>
+                <h3 className="mt-4 text-h4">{p.title}</h3>
+                <p className="mt-1 text-small text-muted">{p.body}</p>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ---------------------------------------------------------- Capabilities */
+/* ------------------------------------------------------------ Industries */
 
-const capabilities: { title: string; body: string; services: ServiceSlug[] }[] = [
-  { title: "Controls that hold up to audit", body: "Designed, documented and tested so evidence exists before anyone asks for it.", services: ["it-audit", "it-risk-advisory"] },
-  { title: "Reporting leadership trusts", body: "Metrics with agreed definitions, reconciled to source and refreshed without manual effort.", services: ["data-analytics", "financial-accounting"] },
-  { title: "Automation with governance", body: "AI and automation that remove work while keeping accountability and control intact.", services: ["ai-process-automation", "cyber-advisory"] },
-  { title: "ERP that fits the process", body: "Processes agreed first, systems configured to match, controls designed in.", services: ["bpr-erp", "it-audit"] },
-  { title: "Security posture you can explain", body: "Exposure described in business terms, with a funded plan to reduce it.", services: ["cyber-advisory", "it-risk-advisory"] },
-  { title: "Forecasts you can defend", body: "Transparent models and assumptions, with the uncertainty stated honestly.", services: ["data-science", "financial-accounting"] },
-];
-
-function CapabilitiesSection() {
+function IndustriesSection() {
   return (
-    <section aria-labelledby="caps" className="section-y">
+    <section aria-labelledby="ind" className="section-y overflow-hidden bg-navy text-white">
+      <div className="container-x flex flex-wrap items-end justify-between gap-6">
+        <Reveal>
+          <p className="eyebrow !text-mint">03 — Industries</p>
+          <h2 id="ind" className="mt-5 text-h2">
+            Every sector. The same questions.
+          </h2>
+        </Reveal>
+        <ButtonLink href="/industries" variant="ghost">
+          All industries
+        </ButtonLink>
+      </div>
+      <Marquee className="mt-14">
+        {industries.map((ind) => (
+          <Link
+            key={ind.slug}
+            href={`/industries#${ind.slug}`}
+            className="group relative block h-80 w-64 shrink-0 overflow-hidden rounded-lg"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+            <img
+              src={img(industryImages[ind.slug], 600)}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            />
+            <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent" />
+            <span className="absolute inset-x-5 bottom-5 flex items-center justify-between text-h4">
+              {ind.name}
+              <ArrowRight aria-hidden="true" strokeWidth={1.75} className="size-5 text-mint transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        ))}
+      </Marquee>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------- Approach */
+
+const stepColors = ["bg-sky", "bg-mint", "bg-amber", "bg-violet"];
+
+function ApproachSection() {
+  return (
+    <section aria-labelledby="approach" className="section-y">
       <div className="container-x">
-        <SectionHeading
-          index="06"
-          label="Selected capabilities"
-          id="caps" title="What clients can expect to have at the end."
-          split
-          intro="Outcomes cut across service lines. These are the capabilities we most often help organizations build."
-        />
-        <ul className="mt-14 grid border-l border-t border-line sm:grid-cols-2 lg:grid-cols-3">
-          {capabilities.map((c, i) => (
-            <Reveal as="li" key={c.title} delay={(i % 3) * 70} className="border-b border-r border-line">
-              <div className="flex h-full flex-col p-7 lg:p-9">
-                <span aria-hidden="true" className="block h-0.5 w-8 bg-teal" />
-                <h3 className="mt-6 text-h4">{c.title}</h3>
-                <p className="mt-3 flex-1 text-small text-muted">{c.body}</p>
-                <ul className="mt-6 flex flex-wrap gap-2">
-                  {c.services.map((slug) => (
-                    <li key={slug}>
-                      <Link
-                        href={`/services/${slug}`}
-                        className="inline-block rounded-xs border border-line px-2 py-1 font-mono text-[11px] uppercase tracking-[0.06em] text-muted transition-colors hover:border-teal hover:text-teal"
-                      >
-                        {getService(slug)?.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        <SectionHeading index="04" label="Approach" id="approach" title="Four steps, every engagement." />
+        <ol className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {approach.map((s, i) => (
+            <Reveal as="li" key={s.title} delay={i * 110} className="relative overflow-hidden rounded-lg border border-line bg-white p-7">
+              <span aria-hidden="true" className={`absolute inset-x-0 top-0 h-1 ${stepColors[i]}`} />
+              <span className="font-mono text-h2 text-line-strong">0{i + 1}</span>
+              <h3 className="mt-4 text-h3">{s.title}</h3>
+              <p className="mt-2 text-small text-muted">{s.body}</p>
             </Reveal>
           ))}
-        </ul>
+        </ol>
       </div>
     </section>
   );
@@ -348,15 +283,15 @@ function CapabilitiesSection() {
 function InsightsSection() {
   const latest = getAllInsights().slice(0, 3);
   return (
-    <section aria-labelledby="ins" className="section-y border-t border-line">
+    <section aria-labelledby="ins" className="section-y bg-canvas">
       <div className="container-x">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading index="07" label="Insights" id="ins" title="Perspectives from the practice." />
+          <SectionHeading index="05" label="Insights" id="ins" title="Perspectives from the practice." />
           <ButtonLink href="/insights" variant="text" className="mb-2">
             Explore Our Insights
           </ButtonLink>
         </div>
-        <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+        <div className="mt-14 grid gap-8 md:grid-cols-3">
           {latest.map((ins, i) => (
             <Reveal key={ins.slug} delay={i * 80}>
               <InsightCard insight={ins} />

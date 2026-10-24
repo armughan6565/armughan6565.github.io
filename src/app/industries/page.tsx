@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { Reveal } from "@/components/motion/reveal";
 import { CTASection } from "@/components/sections/cta-section";
 import { industries } from "@/content/industries";
 import { getService } from "@/content/services";
 import { pageMetadata } from "@/lib/seo";
+import { img, industryImages } from "@/content/media";
 
 export const metadata = pageMetadata({
   title: "Industries — How Data Fold Supports Organizations Across Sectors",
@@ -19,48 +21,36 @@ export default function IndustriesPage() {
       <PageHero
         label="Industries"
         title="Different sectors. The same need for clarity."
-        intro="Pressures differ by sector, but the underlying questions — can we trust our systems, our data and our numbers? — are remarkably consistent. Here is how Data Fold can support organizations in each."
+        intro="Can we trust our systems, our data and our numbers? Here's how we help in each sector."
+        image="1444653614773-995cb1ef9efa"
       />
 
-      <section aria-label="Industries" className="border-t border-line pb-24 lg:pb-32">
-        <div className="container-x grid gap-12 lg:grid-cols-12">
-          {/* Sticky index (desktop) */}
-          <nav aria-label="Industries index" className="hidden lg:col-span-3 lg:block">
-            <ol className="sticky top-[calc(var(--header-h)+2rem)] space-y-1 pt-12">
-              {industries.map((ind, i) => (
-                <li key={ind.slug}>
-                  <a
-                    href={`#${ind.slug}`}
-                    className="group flex items-baseline gap-3 py-1.5 text-small text-muted transition-colors hover:text-ink"
-                  >
-                    <span className="font-mono text-label text-subtle group-hover:text-teal">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="link-underline">{ind.name}</span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
-
-          <div className="lg:col-span-9">
-            {industries.map((ind, i) => (
-              <Reveal
-                as="article"
-                key={ind.slug}
-                className="grid scroll-mt-28 gap-8 border-b border-line py-12 md:grid-cols-9 lg:py-14"
-              >
-                <header id={ind.slug} className="scroll-mt-28 md:col-span-4">
-                  <span className="font-mono text-label text-teal">{String(i + 1).padStart(2, "0")}</span>
-                  <h2 className="mt-3 text-h3">{ind.name}</h2>
-                  <p className="mt-4 text-small text-muted">{ind.pressure}</p>
+      <section aria-label="Industries" className="section-y bg-canvas">
+        <ul className="container-x grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {industries.map((ind, i) => (
+            <Reveal
+              as="li"
+              key={ind.slug}
+              delay={(i % 3) * 80}
+              className="group flex flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-lg"
+            >
+              <article id={ind.slug} className="flex flex-1 scroll-mt-28 flex-col">
+                <header className="relative h-48 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+                  <img
+                    src={img(industryImages[ind.slug], 800)}
+                    alt=""
+                    loading="lazy"
+                    className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
+                  <h2 className="absolute inset-x-6 bottom-5 text-h3 text-white">{ind.name}</h2>
                 </header>
-                <div className="md:col-span-5">
-                  <h3 className="eyebrow">How Data Fold can support</h3>
-                  <ul className="mt-4 space-y-3">
+                <div className="flex flex-1 flex-col p-6">
+                  <ul className="flex-1 space-y-2.5">
                     {ind.support.map((s) => (
-                      <li key={s} className="flex gap-3 text-body text-ink">
-                        <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-teal" />
+                      <li key={s} className="flex gap-3 text-small text-ink">
+                        <Check aria-hidden="true" strokeWidth={2} className="mt-0.5 size-4 shrink-0 text-teal" />
                         {s}
                       </li>
                     ))}
@@ -70,7 +60,7 @@ export default function IndustriesPage() {
                       <li key={slug}>
                         <Link
                           href={`/services/${slug}`}
-                          className="inline-block rounded-xs border border-line px-2 py-1 font-mono text-[11px] uppercase tracking-[0.06em] text-muted transition-colors hover:border-teal hover:text-teal"
+                          className="inline-block rounded-full bg-teal-soft px-3 py-1 text-caption text-teal transition-colors hover:bg-teal hover:text-white"
                         >
                           {getService(slug)?.name}
                         </Link>
@@ -78,16 +68,16 @@ export default function IndustriesPage() {
                     ))}
                   </ul>
                 </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+              </article>
+            </Reveal>
+          ))}
+        </ul>
       </section>
 
       <CTASection
         label="Your sector"
         title="Tell us about the pressures in your organization."
-        body="We will be clear about where our capabilities apply to your context and where they don't."
+        body="We'll be clear about where we can help — and where we can't."
         primary={{ href: "/contact", label: "Request a Consultation" }}
         secondary={{ href: "/services", label: "Explore Our Services" }}
       />

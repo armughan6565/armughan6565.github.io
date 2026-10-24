@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/sections/page-hero";
+import { photos } from "@/content/media";
 import { CTASection } from "@/components/sections/cta-section";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
 import { getService } from "@/content/services";
@@ -42,7 +43,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/case-studies
 
   return (
     <>
-      <PageHero label="Case study" title={c.title} intro={`${c.client} · ${c.sector}`}>
+      <PageHero label="Case study" title={c.title} intro={`${c.client} · ${c.sector}`} image={photos.contract}>
         {c.sample && (
           <p className="mt-8 inline-block rounded-sm border border-warning/30 bg-warning-soft px-4 py-3 text-small text-warning">
             Sample content — replace before launch. No client, figures or dates are real.

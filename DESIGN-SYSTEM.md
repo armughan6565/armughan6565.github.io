@@ -33,6 +33,8 @@ A flat plane (data as it is) beside a plane folding away in perspective (the sam
 | `canvas` | `#F5F6F8` | Alternate section surface |
 | `line` / `line-strong` | `#E4E7EC` / `#CFD4DC` | Hairlines, input borders |
 | `teal-soft`, `blue-soft` | `#E7F3F1`, `#EAF0FD` | Tints for selection and highlights |
+| `navy` | `#06142B` | Hero and dark band surfaces (under photography) |
+| `mint` / `sky` / `amber` / `violet` | `#2DD4BF` / `#38BDF8` / `#F59E0B` / `#8B5CF6` | Vivid accents on dark; discipline colours: Technology = mint, Data = sky, Business = amber (`content/media.ts`) |
 | `success` / `warning` / `error` / `info` | `#157F3C` / `#B54708` / `#B42318` / `#2563EB` | States (each with a `-soft` tint) |
 
 Rule: teal marks *structure and brand*, blue marks *the insight or the focused thing*. Never more than one accent per component.
@@ -63,7 +65,8 @@ Headings use weight 500, never bold. Emphasis comes from colour (teal) or scale,
 - Breakpoints: `sm` 640 · `md` 768 · `lg` 1024 · `xl` 1280 · `2xl` 1536 · `3xl` 1600.
 
 ## Surfaces, radii, shadows
-- Structure comes from **hairlines** (`border-line`) and a faint analytic grid (`.grid-paper`), not from cards and shadows.
+- Heroes and CTAs are dark photographic bands (navy gradient over Unsplash photography — `content/media.ts`; replace with owned photography before launch), finished with a mint→sky→amber rule.
+- Content uses rounded (`lg`) image cards with `shadow-sm`, lifting to `shadow-lg` on hover.
 - Radii: `xs` 2px (tags) · `sm` 4px (buttons, inputs) · `md` 8px · `lg` 12px. Mostly `sm`.
 - Shadows: `sm` for resting panels, `lg` for the mega menu only.
 
@@ -72,16 +75,14 @@ Headings use weight 500, never bold. Emphasis comes from colour (teal) or scale,
 |---|---|
 | Header + MegaMenu + mobile menu | `components/layout/header.tsx` |
 | Footer | `components/layout/footer.tsx` |
-| Button / ButtonLink (`primary`, `secondary`, `inverse`, `text`) | `components/ui/button.tsx` |
+| Button / ButtonLink (`primary`, `secondary`, `inverse`, `ghost`, `text`) | `components/ui/button.tsx` |
 | SectionHeading | `components/ui/section-heading.tsx` |
 | PageHero | `components/sections/page-hero.tsx` |
 | CTASection | `components/sections/cta-section.tsx` |
 | Reveal | `components/motion/reveal.tsx` |
-| FoldVisualization (signature) | `components/visuals/fold-visualization.tsx` |
-| ServiceEcosystem | `components/visuals/service-ecosystem.tsx` |
-| EvidenceLens | `components/visuals/evidence-lens.tsx` |
 | InsightCard, InsightsBrowser | `components/insights/*` |
 | ContactForm | `components/contact/contact-form.tsx` |
+| NumberTicker, Marquee | `components/motion/magic.tsx` |
 
 Icons: **lucide-react only**, stroke 1.5–1.75, 16–24px, always `aria-hidden` when decorative.
 
@@ -93,10 +94,11 @@ Icons: **lucide-react only**, stroke 1.5–1.75, 16–24px, always `aria-hidden`
 | Base | 320ms (`--dur-base`) | `--ease-out` | Button fill, underline, chevrons, menus |
 | Reveal | 640ms (`--dur-reveal`) | `--ease-out` | Section entrance (once) |
 | Route | 420ms | `--ease-out` | Page transition (`app/template.tsx`) |
-| Visualization | 1000–1100ms + 12ms stagger | `--ease-out` | The Fold, Evidence Lens |
+| Ticker | 1600ms | `--ease-out` | NumberTicker count-up (once) |
+| Loop | 45s / 4s / 3s | linear | Industry marquee (pauses on hover), shiny badge text, border beam on card hover |
 
 `--ease-out: cubic-bezier(0.22, 1, 0.36, 1)`. Only `transform` and `opacity` are animated.
 
-Principles: motion shows **change of state or hierarchy** — nothing loops without purpose. The Fold auto-advances only while visible and pauses on hover or focus. Under `prefers-reduced-motion`, transitions collapse to 1ms, reveals are shown immediately, and the Fold holds on the *Insight* stage.
+Principles: motion shows **change of state or hierarchy**. Reveals blur-fade in once. Under `prefers-reduced-motion`, transitions collapse to 1ms, reveals are shown immediately, the marquee stops and tickers show their final value.
 
-Signature interactions: the teal "fold" wipe on primary buttons, the arrow nudge, the animated underline, and the Fold's segmented progress bar.
+Signature interactions: the teal "fold" wipe on primary buttons, the arrow nudge, the animated underline, image zoom on card hover, and the border beam.

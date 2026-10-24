@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight, CircleCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
@@ -8,6 +8,7 @@ import { CTASection } from "@/components/sections/cta-section";
 import { domainOrder, domains, getService, services, servicesByDomain, type Service } from "@/content/services";
 import { JsonLd, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { absoluteUrl } from "@/config/site";
+import { domainColor, img, serviceImages } from "@/content/media";
 
 export const dynamicParams = false;
 
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: PageProps<"/services/[slug]">
 /** Where this service sits in the practice: 3 disciplines × 3 services */
 function PracticeMap({ current }: { current: Service }) {
   return (
-    <figure className="border border-line bg-white p-6">
+    <figure className="rounded-lg bg-white p-6 text-ink shadow-lg">
       <figcaption className="eyebrow">Position in the practice</figcaption>
       <ul className="mt-5 space-y-4">
         {domainOrder.map((d) => (
@@ -96,61 +97,52 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         title={s.hero.headline}
         intro={s.hero.intro}
         aside={<PracticeMap current={s} />}
+        image={serviceImages[s.slug]}
       />
 
-      {/* 01 Problem */}
-      <section aria-labelledby="problem" className="section-y border-t border-line">
-        <div className="container-x grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <SectionHeading index="01" label="The problem" id="problem" title={s.problem.heading} />
-          </div>
-          <Reveal className="space-y-5 lg:col-span-6 lg:col-start-7 lg:pt-12" delay={100}>
-            {s.problem.body.map((p) => (
-              <p key={p} className="text-lead text-muted">
-                {p}
-              </p>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 02 What we do + capabilities */}
-      <section aria-labelledby="what" className="section-y bg-canvas">
+      {/* 01 Problem + what we do */}
+      <section aria-labelledby="what" className="section-y">
         <div className="container-x">
-          <SectionHeading index="02" label="What we do" id="what" title={s.approach} className="[&_h2]:!text-h3 [&_h2]:max-w-4xl" />
-          <ul className="mt-14 grid border-l border-t border-line bg-white sm:grid-cols-2 lg:grid-cols-3">
+          <SectionHeading
+            index="01"
+            label="What we do"
+            id="what"
+            title={s.problem.heading}
+            intro={s.approach}
+            split
+          />
+          <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {s.capabilities.map((c, i) => (
-              <Reveal as="li" key={c.title} delay={(i % 3) * 60} className="border-b border-r border-line p-7 lg:p-8">
+              <Reveal
+                as="li"
+                key={c.title}
+                delay={(i % 3) * 60}
+                className="relative overflow-hidden rounded-lg border border-line p-7 transition-colors hover:border-teal hover:bg-teal-soft/40"
+              >
+                <span aria-hidden="true" className={`absolute inset-y-0 left-0 w-1 ${domainColor[s.domain].bg}`} />
                 <span className="font-mono text-label text-subtle">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-4 text-h4">{c.title}</h3>
-                <p className="mt-2 text-small text-muted">{c.detail}</p>
+                <h3 className="mt-3 text-h4">{c.title}</h3>
+                <p className="mt-1 text-small text-muted">{c.detail}</p>
               </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* 03 Outcomes + 04 Engagement areas */}
-      <section aria-label="Outcomes and engagements" className="section-y">
-        <div className="container-x grid gap-16 lg:grid-cols-2 lg:gap-20">
+      {/* 02 Outcomes */}
+      <section aria-labelledby="outcomes" className="section-y bg-canvas">
+        <div className="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <Reveal className="overflow-hidden rounded-lg shadow-lg">
+            {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+            <img src={img(serviceImages[s.slug], 1200)} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+          </Reveal>
           <div>
-            <SectionHeading index="03" label="Business outcomes" id="outcomes" title="What changes for you." />
-            <ul className="mt-10 border-t border-ink">
+            <SectionHeading index="02" label="Business outcomes" id="outcomes" title="What changes for you." />
+            <ul className="mt-10 space-y-4">
               {s.outcomes.map((o, i) => (
-                <Reveal as="li" key={o} delay={i * 60} className="flex gap-5 border-b border-line py-5">
-                  <span aria-hidden="true" className="mt-2.5 h-0.5 w-5 shrink-0 bg-teal" />
+                <Reveal as="li" key={o} delay={i * 60} className="flex gap-4 rounded-lg bg-white p-5 shadow-sm">
+                  <CircleCheck aria-hidden="true" strokeWidth={1.75} className="size-6 shrink-0 text-teal" />
                   <span className="text-body text-ink">{o}</span>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <SectionHeading index="04" label="Typical engagements" id="engagements" title="Where we are usually asked to help." />
-            <ul className="mt-10 border-t border-ink">
-              {s.engagements.map((e, i) => (
-                <Reveal as="li" key={e} delay={i * 60} className="flex items-baseline gap-5 border-b border-line py-5">
-                  <span className="font-mono text-label text-subtle">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="text-body text-ink">{e}</span>
                 </Reveal>
               ))}
             </ul>
@@ -158,12 +150,12 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </div>
       </section>
 
-      {/* 05 Methodology */}
-      <section aria-labelledby="method" className="section-y bg-ink text-white">
+      {/* 03 Methodology */}
+      <section aria-labelledby="method" className="section-y bg-navy text-white">
         <div className="container-x">
           <Reveal>
             <p className="eyebrow !text-white/60">
-              <span className="text-[#5eead4]">05</span> — Methodology
+              <span className="text-mint">03</span> — Methodology
             </p>
             <h2 id="method" className="mt-5 max-w-3xl text-h2">
               {s.name}, step by step.
@@ -173,7 +165,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             {s.method.map((step, i) => (
               <Reveal as="li" key={step.title} delay={i * 100} className="lg:pr-10">
                 <div className="flex items-center gap-4">
-                  <span className="grid size-9 place-items-center rounded-full border border-white/25 font-mono text-label">
+                  <span className="grid size-10 place-items-center rounded-full bg-mint font-mono text-label text-navy">
                     0{i + 1}
                   </span>
                   <span aria-hidden="true" className="hidden h-px flex-1 bg-white/15 lg:block" />
@@ -189,27 +181,32 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </div>
       </section>
 
-      {/* 06 Related */}
+      {/* 04 Related */}
       <section aria-labelledby="related" className="section-y">
         <div className="container-x">
-          <SectionHeading index="06" label="Related services" id="related" title="Often combined with." />
+          <SectionHeading index="04" label="Related services" id="related" title="Often combined with." />
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
             {related.map((r, i) => (
               <Reveal as="li" key={r.slug} delay={i * 70}>
                 <Link
                   href={`/services/${r.slug}`}
-                  className="group flex h-full flex-col border-t border-ink pt-6 transition-colors"
+                  className="border-beam group relative flex h-64 flex-col justify-end overflow-hidden rounded-lg bg-navy p-6 text-white shadow-md"
                 >
-                  <span className="eyebrow">
-                    <span className="text-teal">{r.number}</span> · {domains[r.domain].name}
-                  </span>
-                  <span className="mt-4 text-h3 transition-colors group-hover:text-teal">{r.name}</span>
-                  <span className="mt-3 flex-1 text-small text-muted">{r.summary}</span>
-                  <ArrowRight
-                    aria-hidden="true"
-                    strokeWidth={1.5}
-                    className="mt-6 size-5 transition-transform group-hover:translate-x-1 group-hover:text-teal"
+                  {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+                  <img
+                    src={img(serviceImages[r.slug], 800)}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 size-full object-cover opacity-70 transition-transform duration-700 ease-out group-hover:scale-110"
                   />
+                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent" />
+                  <span className={`relative font-mono text-label uppercase tracking-[0.08em] ${domainColor[r.domain].text}`}>
+                    {domains[r.domain].name}
+                  </span>
+                  <span className="relative mt-2 flex items-center justify-between gap-4 text-h3">
+                    {r.name}
+                    <ArrowUpRight aria-hidden="true" strokeWidth={1.5} className="size-6 shrink-0 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                  </span>
                 </Link>
               </Reveal>
             ))}
@@ -220,7 +217,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <CTASection
         label={s.name}
         title={`Talk to us about ${s.name}.`}
-        body="Share what you are facing. We will respond with a practical view of scope, approach and where to start."
+        body="Share what you're facing — we'll suggest where to start."
         primary={{ href: `/contact?service=${s.slug}`, label: "Request a Consultation" }}
         secondary={{ href: "/services", label: "All services" }}
       />

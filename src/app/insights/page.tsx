@@ -1,4 +1,5 @@
 import { PageHero } from "@/components/sections/page-hero";
+import { photos } from "@/content/media";
 import { InsightsBrowser } from "@/components/insights/insights-browser";
 import { CTASection } from "@/components/sections/cta-section";
 import { getAllInsights, insightCategories } from "@/content/insights";
@@ -17,9 +18,10 @@ export default function InsightsPage() {
       <PageHero
         label="Insights"
         title="Perspectives from the practice."
-        intro="Practical thinking on risk, technology, AI, data and finance — written for the people who have to make the decisions."
+        intro="Practical thinking on risk, technology, AI, data and finance."
+        image={photos.laptopWork}
       />
-      <section aria-label="Articles" className="border-t border-line pb-24 pt-12 lg:pb-32">
+      <section aria-label="Articles" className="bg-canvas pb-24 pt-12 lg:pb-32">
         <div className="container-x">
           <InsightsBrowser insights={getAllInsights()} categories={insightCategories} />
         </div>
@@ -27,7 +29,7 @@ export default function InsightsPage() {
       <CTASection
         label="Discuss a topic"
         title="Want to go deeper on one of these questions?"
-        body="Our perspectives come from the same work we do with clients. We are happy to discuss how they apply to your organization."
+        body="We're happy to discuss how they apply to your organization."
         primary={{ href: "/contact", label: "Talk to an Advisor" }}
       />
     </>

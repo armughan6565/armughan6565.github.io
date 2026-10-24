@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
+import { img, photos } from "@/content/media";
 
 type Action = { href: string; label: string };
 
@@ -18,27 +19,26 @@ export function CTASection({
   secondary?: Action;
 }) {
   return (
-    <section aria-labelledby="cta-title" className="relative overflow-hidden border-t border-line bg-canvas">
-      {/* Fold motif: two planes echoing the logo, purely structural */}
-      <svg
+    <section aria-labelledby="cta-title" className="relative overflow-hidden bg-navy text-white">
+      {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+      <img src={img(photos.meeting, 1800)} alt="" aria-hidden="true" className="absolute inset-0 size-full object-cover" />
+      <div
         aria-hidden="true"
-        viewBox="0 0 400 400"
-        className="pointer-events-none absolute right-[4%] top-1/2 hidden h-[70%] max-h-[420px] -translate-y-1/2 lg:block"
-      >
-        <rect x="40" y="40" width="150" height="320" fill="none" stroke="#cfd4dc" />
-        <path d="M210 40 360 102v196l-150 62Z" fill="#e7f3f1" stroke="#0f766e" strokeOpacity=".35" />
-      </svg>
+        className="absolute inset-0 bg-[linear-gradient(90deg,rgb(6_20_43/0.97)_30%,rgb(6_20_43/0.7)_65%,rgb(15_118_110/0.55))]"
+      />
       <div className="container-x relative section-y">
         <Reveal className="max-w-2xl">
-          <p className="eyebrow">{label}</p>
+          <p className="eyebrow !text-mint">{label}</p>
           <h2 id="cta-title" className="mt-5 text-h1">
             {title}
           </h2>
-          <p className="mt-6 text-lead text-muted">{body}</p>
+          <p className="mt-6 text-lead text-white/75">{body}</p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href={primary.href}>{primary.label}</ButtonLink>
+            <ButtonLink href={primary.href} variant="inverse">
+              {primary.label}
+            </ButtonLink>
             {secondary && (
-              <ButtonLink href={secondary.href} variant="secondary">
+              <ButtonLink href={secondary.href} variant="ghost">
                 {secondary.label}
               </ButtonLink>
             )}

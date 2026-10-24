@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "inverse" | "text";
+type Variant = "primary" | "secondary" | "inverse" | "ghost" | "text";
 
 const base =
   "group relative inline-flex items-center justify-center gap-2.5 overflow-hidden whitespace-nowrap font-medium transition-[color,background-color,border-color] duration-[var(--dur-fast)] ease-out disabled:pointer-events-none disabled:opacity-60";
@@ -15,6 +15,8 @@ const variants: Record<Variant, string> = {
     "h-12 rounded-sm border border-line-strong bg-white px-6 text-small text-ink hover:border-ink",
   inverse:
     "h-12 rounded-sm bg-white px-6 text-small text-ink before:absolute before:inset-0 before:origin-left before:scale-x-0 before:bg-teal-soft before:transition-transform before:duration-[var(--dur-base)] before:ease-out hover:before:scale-x-100",
+  // Outline button for dark/photographic backgrounds
+  ghost: "h-12 rounded-sm border border-white/40 px-6 text-small text-white hover:border-white hover:bg-white/10",
   text: "text-small text-ink hover:text-teal",
 };
 

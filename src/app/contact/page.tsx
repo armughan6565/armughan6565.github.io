@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { photos } from "@/content/media";
 import { ContactForm } from "@/components/contact/contact-form";
 import { site } from "@/config/site";
 import { pageMetadata } from "@/lib/seo";
@@ -61,9 +62,10 @@ export default function ContactPage() {
       <PageHero
         label="Contact"
         title="Start a conversation."
-        intro="Tell us what you are trying to decide, fix or build. Choose whether you'd like an initial consultation or to discuss a defined project."
+        intro="Tell us what you need to decide, fix or build."
+        image={photos.office}
       />
-      <section aria-label="Contact form" className="border-t border-line bg-canvas py-16 lg:py-24">
+      <section aria-label="Contact form" className="bg-canvas py-16 lg:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <Suspense fallback={<FormSkeleton />}>

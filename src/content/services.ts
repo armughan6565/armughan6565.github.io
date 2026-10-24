@@ -25,11 +25,10 @@ export interface Service {
   summary: string;
   seo: { title: string; description: string };
   hero: { headline: string; intro: string };
-  problem: { heading: string; body: string[] };
+  problem: { heading: string };
   approach: string;
   capabilities: { title: string; detail: string }[];
   outcomes: string[];
-  engagements: string[];
   method: { title: string; detail: string }[];
   related: ServiceSlug[];
   disclaimer?: string;
@@ -77,10 +76,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "Most financial and operational risk now sits inside systems.",
-      body: [
-        "Access rights, change management, interfaces and automated calculations quietly determine whether reported numbers are right. When those controls are undocumented or untested, issues surface late — during the external audit, a regulatory review, or after a system change.",
-        "Internal audit teams are often stretched across business and technology scope, and specialist IT audit skills are hard to hold in-house.",
-      ],
     },
     approach:
       "We plan IT audit work around the risks that matter to your reporting and operations, test controls with evidence rather than inquiry, and write findings that owners can act on — root cause, impact and a practical fix.",
@@ -97,13 +92,6 @@ export const services: Service[] = [
       "Fewer late surprises in year-end and statutory audits",
       "Findings ranked by impact, with owners and realistic remediation",
       "A repeatable testing approach your team can sustain",
-    ],
-    engagements: [
-      "ITGC readiness ahead of an external audit",
-      "Application control testing for key financial processes",
-      "Post-implementation review after an ERP go-live",
-      "Co-sourced IT internal audit plan delivery",
-      "Automated control identification and rationalisation",
     ],
     method: [
       { title: "Scope", detail: "Map in-scope systems to financial and operational risks; agree evidence standards up front." },
@@ -131,10 +119,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "Technology risk is rarely measured the way business risk is.",
-      body: [
-        "Risk registers list technology risks in generic terms. Control frameworks exist on paper but are not mapped to real systems or owners. Third parties host critical processes with limited oversight.",
-        "The result is a risk picture that is hard to challenge and harder to act on.",
-      ],
     },
     approach:
       "We connect technology risk to business processes and outcomes, then build governance and control frameworks sized to your organization — rigorous enough to rely on, light enough to run.",
@@ -151,13 +135,6 @@ export const services: Service[] = [
       "Controls mapped to owners, systems and evidence",
       "Clear oversight of critical third-party technology",
       "A prioritised, costed remediation roadmap",
-    ],
-    engagements: [
-      "Enterprise technology risk assessment",
-      "IT governance review and redesign",
-      "Third-party technology risk programme set-up",
-      "Control framework design or rationalisation",
-      "Audit or regulatory finding remediation",
     ],
     method: [
       { title: "Understand", detail: "Interview leadership and system owners; map critical services to the technology beneath them." },
@@ -187,9 +164,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "Security spend is rising. Confidence often isn't.",
-      body: [
-        "Organizations invest in tools without a clear picture of their exposure. Findings from scans and tests pile up without prioritisation. Boards ask whether the organization is secure and receive answers that are either too technical or too reassuring.",
-      ],
     },
     approach:
       "We combine governance-level assessment with technical testing, so strategy is grounded in evidence and technical findings are tied to business risk.",
@@ -206,13 +180,6 @@ export const services: Service[] = [
       "Technical findings prioritised by business impact",
       "A sequenced roadmap that ties spend to risk reduction",
       "Teams rehearsed for the incidents most likely to occur",
-    ],
-    engagements: [
-      "Cyber maturity baseline and roadmap",
-      "External and internal penetration testing",
-      "Cloud security posture review",
-      "Incident response plan and tabletop exercise",
-      "Security controls assessment against a chosen framework",
     ],
     method: [
       { title: "Baseline", detail: "Establish current maturity and the assets and processes that matter most." },
@@ -242,9 +209,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "Most organizations have plenty of reports and too little insight.",
-      body: [
-        "Numbers differ between departments. Month-end packs are rebuilt by hand. Dashboards launch with enthusiasm and fall out of use because nobody trusts the figures or the definitions behind them.",
-      ],
     },
     approach:
       "We start with the decisions a report must support, agree definitions, fix the data underneath, and only then design the dashboard. Adoption is part of the scope, not an afterthought.",
@@ -261,13 +225,6 @@ export const services: Service[] = [
       "Hours returned from manual report preparation",
       "Exceptions surfaced automatically instead of by chance",
       "Dashboards that are still used a year later",
-    ],
-    engagements: [
-      "Management dashboard and KPI framework",
-      "Automated month-end and board reporting",
-      "Audit analytics and exception reporting",
-      "Data quality assessment and remediation",
-      "BI platform migration or consolidation",
     ],
     method: [
       { title: "Define", detail: "Agree the decisions, metrics and definitions before touching tools." },
@@ -295,10 +252,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "AI pilots are easy. Useful, governed AI in production is not.",
-      body: [
-        "Many organizations run proofs of concept that never reach production — because the use case was unclear, the data wasn't ready, or risk and compliance were involved too late.",
-        "Meanwhile, repetitive document-heavy work continues to absorb skilled people.",
-      ],
     },
     approach:
       "We treat AI as a process and control question first and a technology question second: what work changes, what could go wrong, how will we know it's working. Then we build.",
@@ -315,13 +268,6 @@ export const services: Service[] = [
       "Automations with clear owners, controls and fallbacks",
       "Measured reduction in manual handling time",
       "Governance that lets you scale AI responsibly",
-    ],
-    engagements: [
-      "AI opportunity assessment and roadmap",
-      "Knowledge assistant over internal policies and documents",
-      "Invoice or contract document processing",
-      "Finance or operations workflow automation",
-      "AI policy and governance framework",
     ],
     method: [
       { title: "Discover", detail: "Map the process as it runs today and measure where time and errors accumulate." },
@@ -349,9 +295,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "A model nobody understands rarely changes a decision.",
-      body: [
-        "Forecasts are often built in spreadsheets with hidden assumptions. Machine learning projects produce impressive accuracy figures but never reach the people making decisions, because the model cannot be explained or trusted.",
-      ],
     },
     approach:
       "We choose the simplest method that answers the question well, validate it honestly against out-of-sample data, and present results with the uncertainty that belongs to them.",
@@ -368,13 +311,6 @@ export const services: Service[] = [
       "Models business owners can explain in their own words",
       "Earlier signals of fraud, default or operational failure",
       "Documented, maintainable model pipelines",
-    ],
-    engagements: [
-      "Revenue or demand forecasting model",
-      "Transaction anomaly detection for audit or fraud",
-      "Customer segmentation and churn prediction",
-      "Credit or operational risk scoring",
-      "Model validation and documentation review",
     ],
     method: [
       { title: "Frame", detail: "Translate the business question into a measurable prediction target." },
@@ -402,9 +338,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "Tax risk often starts in systems and processes, not in the tax return.",
-      body: [
-        "Incorrect tax codes in the ERP, manual reconciliations and scattered documentation create exposure long before a filing is prepared. When authorities ask questions, supporting evidence is hard to assemble.",
-      ],
     },
     approach:
       "We combine technical tax advice with process and data work — so positions are well reasoned and the numbers behind them are traceable.",
@@ -421,13 +354,6 @@ export const services: Service[] = [
       "Reduced exposure from system and process errors",
       "Tax data that reconciles to the general ledger",
       "Clear documentation for queries and reviews",
-    ],
-    engagements: [
-      "Corporate tax compliance and provision review",
-      "Sales tax health check and ERP tax-code review",
-      "Tax control framework design",
-      "Tax reporting automation",
-      "Advisory on specific transactions or structures",
     ],
     method: [
       { title: "Diagnose", detail: "Review filings, positions, processes and the data that feeds them." },
@@ -457,9 +383,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "Finance teams spend too much time producing numbers and too little explaining them.",
-      body: [
-        "Close timetables stretch because reconciliations are manual and adjustments arrive late. New or complex accounting requirements land on teams already at capacity. Management reporting exists, but does not answer the questions leadership asks.",
-      ],
     },
     approach:
       "We work alongside your finance team — resolving technical accounting questions, then fixing the process and control gaps that cause the same issues to recur.",
@@ -476,13 +399,6 @@ export const services: Service[] = [
       "Well-documented accounting judgements",
       "Fewer audit adjustments and management letter points",
       "Reporting that explains performance, not just records it",
-    ],
-    engagements: [
-      "IFRS implementation or technical accounting support",
-      "Financial statement preparation support",
-      "Month-end close acceleration",
-      "Management reporting redesign",
-      "Controls over financial reporting review",
     ],
     method: [
       { title: "Assess", detail: "Review the close, reporting outputs and recurring audit points." },
@@ -510,9 +426,6 @@ export const services: Service[] = [
     },
     problem: {
       heading: "ERP projects often automate the problems they were meant to fix.",
-      body: [
-        "Implementations run over time and budget when processes are not agreed before configuration. Customisations multiply. Controls are retrofitted after go-live. Teams end up working around the system rather than through it.",
-      ],
     },
     approach:
       "We design the process first, then the system: standard where possible, configured where necessary, customised only when there is a clear business case — and always with the control implications understood.",
@@ -529,13 +442,6 @@ export const services: Service[] = [
       "Fewer customisations and cleaner upgrades",
       "Controls designed in, not retrofitted",
       "Adoption supported by clear roles and training",
-    ],
-    engagements: [
-      "End-to-end process assessment",
-      "ERP selection and business case",
-      "Implementation quality assurance",
-      "Post-go-live stabilisation and optimisation",
-      "Segregation of duties and role redesign",
     ],
     method: [
       { title: "Map", detail: "Document how work actually flows today — including the workarounds." },

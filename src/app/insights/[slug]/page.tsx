@@ -6,6 +6,7 @@ import { CTASection } from "@/components/sections/cta-section";
 import { getAllInsights, getInsight, type Block } from "@/content/insights";
 import { JsonLd, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { absoluteUrl, site } from "@/config/site";
+import { img, insightImages } from "@/content/media";
 
 export const dynamicParams = false;
 
@@ -82,21 +83,24 @@ export default async function InsightPage({ params }: PageProps<"/insights/[slug
       />
 
       <article>
-        <header className="relative overflow-hidden border-b border-line pt-[var(--header-h)]">
-          <div aria-hidden="true" className="grid-paper absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
+        <header className="relative overflow-hidden bg-navy pt-[var(--header-h)] text-white">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static export, no optimizer */}
+          <img src={img(insightImages[a.category], 1800)} alt="" aria-hidden="true" className="absolute inset-0 size-full object-cover" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(100deg,rgb(6_20_43/0.96)_20%,rgb(6_20_43/0.8)_60%,rgb(15_118_110/0.5))]" />
+          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-mint via-sky to-amber" />
           <div className="container-x relative pb-14 pt-12 md:pb-20 md:pt-16">
-            <Link href="/insights" className="group eyebrow inline-flex items-center gap-2 hover:text-ink">
+            <Link href="/insights" className="group eyebrow inline-flex items-center gap-2 !text-white/70 hover:!text-white">
               <ArrowLeft aria-hidden="true" className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
               Insights
             </Link>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <span className="eyebrow !text-teal">{a.category}</span>
-              <span className="eyebrow">{a.format}</span>
+              <span className="eyebrow !text-mint">{a.category}</span>
+              <span className="eyebrow !text-white/60">{a.format}</span>
               {a.sample && <SampleBadge />}
             </div>
             <h1 className="mt-5 max-w-4xl text-h1">{a.title}</h1>
-            <p className="mt-6 max-w-2xl text-lead text-muted">{a.dek}</p>
-            <p className="mt-8 text-caption text-subtle">
+            <p className="mt-6 max-w-2xl text-lead text-white/75">{a.dek}</p>
+            <p className="mt-8 text-caption text-white/60">
               <time dateTime={a.published}>{formatDate(a.published)}</time> · {a.readingMinutes} min read · {site.name}
             </p>
           </div>

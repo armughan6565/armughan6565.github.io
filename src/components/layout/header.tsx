@@ -9,7 +9,6 @@ import { ButtonLink } from "@/components/ui/button";
 import { domainOrder, domains, servicesByDomain } from "@/content/services";
 
 const primaryNav = [
-  { href: "/industries", label: "Industries" },
   { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -57,7 +56,7 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-[var(--dur-base)] ${
-        solid ? "border-b border-line bg-white/90 backdrop-blur-md" : "border-b border-transparent bg-white/0"
+        solid ? "border-b border-line bg-white/90 backdrop-blur-md" : "border-b border-line bg-white" /* always opaque: heroes are dark photography */
       }`}
     >
       <a
